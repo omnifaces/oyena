@@ -11,7 +11,7 @@ import javax.faces.context.FacesContext;
 
 /**
  * The HTML component for h:panelGroup.
- *
+ * 
  * @author Manfred Riem (mriem@manorrock.com)
  */
 @FacesComponent(
@@ -21,6 +21,11 @@ import javax.faces.context.FacesContext;
         value = "javax.faces.HtmlPanelGroup")
 public class HtmlPanelGroup extends UIPanel {
 
+    /*
+     * FIXME - the UI component should be able to be @RequestScoped. An issue 
+     *         should be filed for this.
+     */
+ 
     /**
      * Stores the component type.
      */
@@ -39,6 +44,9 @@ public class HtmlPanelGroup extends UIPanel {
      * @return the layout.
      */
     public String getLayout() {
+        /*
+         * FIXME - the FacesContext should be injectable. An issue should be filed for this.
+         */
         FacesContext context = FacesContext.getCurrentInstance();
         return (String) getValueExpression("layout").getValue(context.getELContext());
     }
@@ -49,6 +57,9 @@ public class HtmlPanelGroup extends UIPanel {
      * @return the style.
      */
     public String getStyle() {
+        /*
+         * FIXME - the FacesContext should be injectable. An issue should be filed for this.
+         */
         FacesContext context = FacesContext.getCurrentInstance();
         return (String) getValueExpression("style").getValue(context.getELContext());
     }
@@ -59,6 +70,9 @@ public class HtmlPanelGroup extends UIPanel {
      * @return the style class.
      */
     public String getStyleClass() {
+        /*
+         * FIXME - the FacesContext should be injectable. An issue should be filed for this.
+         */
         FacesContext context = FacesContext.getCurrentInstance();
         return (String) getValueExpression("styleClass").getValue(context.getELContext());
     }
@@ -69,6 +83,9 @@ public class HtmlPanelGroup extends UIPanel {
      * @param layout the layout.
      */
     public void setLayout(String layout) {
+        /*
+         * FIXME - the FacesContext should be injectable. An issue should be filed for this.
+         */
         FacesContext context = FacesContext.getCurrentInstance();
         ExpressionFactory ef = context.getApplication().getExpressionFactory();
         ValueExpression ve = ef.createValueExpression(layout, String.class);
@@ -81,6 +98,9 @@ public class HtmlPanelGroup extends UIPanel {
      * @param style the style.
      */
     public void setStyle(String style) {
+        /*
+         * FIXME - the FacesContext should be injectable. An issue should be filed for this.
+         */
         FacesContext context = FacesContext.getCurrentInstance();
         ExpressionFactory ef = context.getApplication().getExpressionFactory();
         ValueExpression ve = ef.createValueExpression(style, String.class);
@@ -93,6 +113,9 @@ public class HtmlPanelGroup extends UIPanel {
      * @param styleClass the style class.
      */
     public void setStyleClass(String styleClass) {
+        /*
+         * FIXME - the FacesContext should be injectable. An issue should be filed for this.
+         */
         FacesContext context = FacesContext.getCurrentInstance();
         ExpressionFactory ef = context.getApplication().getExpressionFactory();
         ValueExpression ve = ef.createValueExpression(styleClass, String.class);
