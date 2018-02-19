@@ -6,19 +6,28 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
     version="2.3">
     <!--
-        It should be possible to override a standard component using the
+        FIXME - It should be possible to override a standard component using the
         @FacesComponent annotation. An issue should be filed for this.
         -->
+    <component>
+        <component-type>javax.faces.HtmlPanelGrid</component-type>
+        <component-class>com.manorrock.oyena.component.html.HtmlPanelGrid</component-class>
+    </component>
     <component>
         <component-type>javax.faces.HtmlPanelGroup</component-type>
         <component-class>com.manorrock.oyena.component.html.HtmlPanelGroup</component-class>
     </component>
     <!--
-        It should be possible to override a standard renderer using the
+        FIXME - It should be possible to override a standard renderer using the
         @FacesRenderer annotation. An issue should be filed for this.
         -->
     <render-kit>
         <render-kit-id>HTML_BASIC</render-kit-id>
+        <renderer>
+            <component-family>javax.faces.Panel</component-family>
+            <renderer-type>javax.faces.Grid</renderer-type>
+            <renderer-class>com.manorrock.oyena.renderkit.html.HtmlPanelGridRenderer</renderer-class>
+        </renderer>
         <renderer>
             <component-family>javax.faces.Panel</component-family>
             <renderer-type>javax.faces.Group</renderer-type>
