@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2002-2018 Manorrock.com. All Rights Reserved.
  */
-package com.manorrock.oyena.component.html;
+package com.manorrock.oyena.html;
 
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIPanel;

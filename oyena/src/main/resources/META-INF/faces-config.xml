@@ -11,11 +11,11 @@
         -->
     <component>
         <component-type>javax.faces.HtmlPanelGrid</component-type>
-        <component-class>com.manorrock.oyena.component.html.HtmlPanelGrid</component-class>
+        <component-class>com.manorrock.oyena.html.HtmlPanelGrid</component-class>
     </component>
     <component>
         <component-type>javax.faces.HtmlPanelGroup</component-type>
-        <component-class>com.manorrock.oyena.component.html.HtmlPanelGroup</component-class>
+        <component-class>com.manorrock.oyena.html.HtmlPanelGroup</component-class>
     </component>
     <!--
         FIXME - It should be possible to override a standard renderer using the
@@ -26,12 +26,12 @@
         <renderer>
             <component-family>javax.faces.Panel</component-family>
             <renderer-type>javax.faces.Grid</renderer-type>
-            <renderer-class>com.manorrock.oyena.renderkit.html.HtmlPanelGridRenderer</renderer-class>
+            <renderer-class>com.manorrock.oyena.html.HtmlPanelGridRenderer</renderer-class>
         </renderer>
         <renderer>
             <component-family>javax.faces.Panel</component-family>
             <renderer-type>javax.faces.Group</renderer-type>
-            <renderer-class>com.manorrock.oyena.renderkit.html.HtmlPanelGroupRenderer</renderer-class>
+            <renderer-class>com.manorrock.oyena.html.HtmlPanelGroupRenderer</renderer-class>
         </renderer>
     </render-kit>
 </faces-config>

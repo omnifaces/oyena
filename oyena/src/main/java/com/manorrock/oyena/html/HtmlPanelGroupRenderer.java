@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2002-2018 Manorrock.com. All Rights Reserved.
  */
-package com.manorrock.oyena.renderkit.html;
+package com.manorrock.oyena.html;
 
 import java.io.IOException;
 import javax.el.ValueExpression;
