@@ -115,9 +115,13 @@ public class HtmlPanelGridRenderer extends Renderer {
             ResponseWriter writer = context.getResponseWriter();
             writer.startElement("tbody", null);
             if (component.getValueExpression("columns") == null) {
+                writer.startElement("tr", null);
                 for (UIComponent child : component.getChildren()) {
+                    writer.startElement("td", child);
                     child.encodeAll(context);
+                    writer.endElement("td");
                 }
+                writer.endElement("tr");
             } else {
                 List<String> columnClasses = null;
                 if (component.getValueExpression("columnClasses") != null) {
@@ -126,7 +130,7 @@ public class HtmlPanelGridRenderer extends Renderer {
                     columnClasses = Arrays.asList(columnString.split(","));
                 }
                 int columnIndex = 0;
-                int columns = (int) component.getValueExpression("columns").getValue(context.getELContext());
+                long columns = (long) component.getValueExpression("columns").getValue(context.getELContext());
                 List<String> rowClasses = null;
                 if (component.getValueExpression("rowClasses") != null) {
                     String rowString = (String) component.
@@ -154,6 +158,7 @@ public class HtmlPanelGridRenderer extends Renderer {
                         }
                         child.encodeAll(context);
                         writer.endElement("td");
+                        columnIndex++;
                         if (columnIndex == columns) {
                             writer.endElement("tr");
                             columnIndex = 0;

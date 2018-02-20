@@ -3,11 +3,8 @@
  */
 package com.manorrock.oyena.component.html;
 
-import javax.el.ExpressionFactory;
-import javax.el.ValueExpression;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIPanel;
-import javax.faces.context.FacesContext;
 
 /**
  * The HTML component for h:panelGrid.
