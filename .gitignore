@@ -1,3 +1,7 @@
 nb-configuration.xml
 /oyena/target/
 /test-webapp/target/
+/rest/target/
+/html/target/
+/html-test-webapp/target/
+/target/
