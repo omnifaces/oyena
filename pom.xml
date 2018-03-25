@@ -77,6 +77,7 @@
         </dependencies>
     </dependencyManagement>
     <modules>
+        <module>action</module>
         <module>html</module>
         <module>html-test-webapp</module>
         <module>rest</module>
