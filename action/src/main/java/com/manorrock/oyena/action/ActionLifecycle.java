@@ -5,6 +5,7 @@ package com.manorrock.oyena.action;
 
 import javax.faces.FacesException;
 import javax.faces.FactoryFinder;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
@@ -17,19 +18,16 @@ import javax.faces.lifecycle.LifecycleFactory;
  * @status Experimental
  */
 public class ActionLifecycle extends Lifecycle {
-    
+
     /**
      * Stores the default lifecycle.
      */
-    private final Lifecycle defaultLifecycle;
-    
+    private Lifecycle defaultLifecycle;
+
     /**
      * Constructor.
      */
     public ActionLifecycle() {
-        LifecycleFactory lifecycleFactory = (LifecycleFactory) 
-                FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-        defaultLifecycle= lifecycleFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
     }
 
     /**
@@ -53,6 +51,32 @@ public class ActionLifecycle extends Lifecycle {
      */
     @Override
     public void execute(FacesContext facesContext) throws FacesException {
+        if (facesContext.getViewRoot() == null) {
+            UIViewRoot viewRoot = new UIViewRoot();
+            viewRoot.setRenderKitId("HTML_BASIC");
+            viewRoot.setViewId("/index.xhtml");
+            facesContext.setViewRoot(viewRoot);
+        }
+    }
+
+    /**
+     * Get the default lifecycle.
+     * 
+     * <p>
+     *  FIXME - This method lazily gets the default lifecycle as FactoryFinder is
+     *  not properly re-entrant. We should be able to initialize the 
+     *  defaultLifecycle variable in the constructor of this class. An issue
+     *  should be filed for this.
+     * </p>
+     *
+     * @return the default lifecycle.
+     */
+    private synchronized Lifecycle getDefaultLifecycle() {
+        if (defaultLifecycle == null) {
+            LifecycleFactory lifecycleFactory = (LifecycleFactory) FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+            defaultLifecycle = lifecycleFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
+        }
+        return defaultLifecycle;
     }
 
     /**
@@ -91,6 +115,6 @@ public class ActionLifecycle extends Lifecycle {
      */
     @Override
     public void render(FacesContext facesContext) throws FacesException {
-        defaultLifecycle.render(facesContext);
+        getDefaultLifecycle().render(facesContext);
     }
 }
