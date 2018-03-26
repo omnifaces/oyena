@@ -1,10 +1,4 @@
-nb-configuration.xml
-/oyena/target/
-/test-webapp/target/
-/rest/target/
-/html/target/
-/html-test-webapp/target/
+/nb-configuration.xml
 /target/
-/action/target/
-/action-test-webapp/target/
-/rest-test-webapp/target/
+*/nb-configuration.xml
+*/target/
