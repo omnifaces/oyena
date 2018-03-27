@@ -33,7 +33,6 @@ import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.AnnotatedMethod;
 import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.CDI;
 import javax.enterprise.util.AnnotationLiteral;
 import javax.faces.FacesException;
@@ -43,8 +42,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.lifecycle.LifecycleFactory;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 /**
  * The Action lifecycle.
@@ -53,11 +50,6 @@ import javax.naming.NamingException;
  * @status Beta
  */
 public class ActionLifecycle extends Lifecycle {
-
-    /**
-     * Stores the bean manager.
-     */
-    private BeanManager beanManager;
 
     /**
      * Stores the default lifecycle.
@@ -93,7 +85,7 @@ public class ActionLifecycle extends Lifecycle {
     private ActionMappingMatch determineActionMappingMatch(FacesContext facesContext, Bean<?> bean) {
         ActionMappingMatch result = null;
         Class clazz = bean.getBeanClass();
-        AnnotatedType annotatedType = beanManager.createAnnotatedType(clazz);
+        AnnotatedType annotatedType = CDI.current().getBeanManager().createAnnotatedType(clazz);
         Set<AnnotatedMethod> annotatedMethodSet = annotatedType.getMethods();
         for (AnnotatedMethod method : annotatedMethodSet) {
             if (method.isAnnotationPresent(ActionMapping.class)) {
@@ -188,37 +180,10 @@ public class ActionLifecycle extends Lifecycle {
      * @return the beans.
      */
     private Iterator<Bean<?>> getBeans() {
-        Set<Bean<?>> beans = getBeanManager().getBeans(
+        Set<Bean<?>> beans = CDI.current().getBeanManager().getBeans(
                 Object.class, new AnnotationLiteral<Any>() {
         });
         return beans.iterator();
-    }
-
-    /**
-     * Get the BeanManager.
-     *
-     * @return the bean manager.
-     */
-    private BeanManager getBeanManager() {
-        if (beanManager == null) {
-            Object result = null;
-            try {
-                InitialContext initialContext = new InitialContext();
-                result = initialContext.lookup("java:comp/BeanManager");
-            } catch (NamingException exception) {
-                try {
-                    InitialContext initialContext = new InitialContext();
-                    result = initialContext.lookup("java:comp/env/BeanManager");
-                } catch (NamingException exception2) {
-                }
-            }
-            if (result != null) {
-                beanManager = (BeanManager) result;
-            } else {
-                beanManager = null;
-            }
-        }
-        return beanManager;
     }
 
     /**
