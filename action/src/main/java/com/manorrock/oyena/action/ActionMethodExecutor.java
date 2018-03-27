@@ -27,10 +27,10 @@
 package com.manorrock.oyena.action;
 
 /**
- * The action mapping matcher API.
+ * The action method executor API.
  * 
  * @author Manfred Riem (mriem@manorrock.com)
  * @status Beta
  */
-public interface ActionMappingMatcher {
+public interface ActionMethodExecutor {
 }
