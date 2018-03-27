@@ -36,7 +36,8 @@ And you need to have a faces-config.xml in the WEB-INF directory with at minimum
     <faces-config version="2.2"
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+                                  http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
       <factory>
         <lifecycle-factory>com.manorrock.oyena.action.ActionLifecycleFactory</lifecycle-factory>
       </factory>
@@ -50,7 +51,8 @@ If you add an empty beans.xml to the WEB-INF directory it will take care of that
 
     <beans xmlns="http://java.sun.com/xml/ns/javaee"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
+       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                           http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
     </beans>
 
 ### Add a Servlet mapping with the correct lifecycle id
@@ -62,7 +64,8 @@ For example:
     <web-app 
          xmlns="http://java.sun.com/xml/ns/javaee"
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	 version="3.0">
       <servlet>
         <servlet-name>Action Servlet</servlet-name>
