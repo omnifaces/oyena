@@ -145,7 +145,7 @@ public class ActionLifecycle extends Lifecycle {
      * return a zero length array.
      * </p>
      *
-     * @return
+     * @return the empty array of phase listeners.
      */
     @Override
     public PhaseListener[] getPhaseListeners() {
