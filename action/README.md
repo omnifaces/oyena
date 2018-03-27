@@ -47,7 +47,7 @@ And you need to have a faces-config.xml in the WEB-INF directory with at minimum
 
 As the framework requires CDI you need to activate CDI.
 
-If you add an empty beans.xml to the WEB-INF directory it will take care of that.
+If you add an placeholder beans.xml to the WEB-INF directory it will take care of that.
 
     <beans xmlns="http://java.sun.com/xml/ns/javaee"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
