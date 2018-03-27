@@ -38,6 +38,11 @@ import javax.enterprise.inject.spi.Bean;
 public class ActionMappingMatch {
 
     /**
+     * Stores the action mapping.
+     */
+    private String actionMapping;
+
+    /**
      * Stores the mapping type.
      */
     private MappingType mappingType;
@@ -46,16 +51,20 @@ public class ActionMappingMatch {
      * Stores the bean.
      */
     private Bean<?> bean;
-    
+
     /**
      * Stores the method.
      */
     private Method method;
-    
+
     /**
-     * Stores the request mapping.
+     * Get the action mapping.
+     * 
+     * @return the action mapping.
      */
-    private String requestMapping;
+    public String getActionMapping() {
+        return actionMapping;
+    }
 
     /**
      * Get the bean.
@@ -72,7 +81,7 @@ public class ActionMappingMatch {
      * @return the length.
      */
     public int getLength() {
-        return requestMapping.length();
+        return actionMapping.length();
     }
 
     /**
@@ -94,12 +103,12 @@ public class ActionMappingMatch {
     }
 
     /**
-     * Set the mapping type.
+     * Set the action mapping.
      *
-     * @param mappingType the mapping type.
+     * @param actionMApping the action mapping.
      */
-    public void setMappingType(MappingType mappingType) {
-        this.mappingType = mappingType;
+    public void setActionMapping(String actionMApping) {
+        this.actionMapping = actionMApping;
     }
 
     /**
@@ -112,21 +121,21 @@ public class ActionMappingMatch {
     }
 
     /**
+     * Set the mapping type.
+     *
+     * @param mappingType the mapping type.
+     */
+    public void setMappingType(MappingType mappingType) {
+        this.mappingType = mappingType;
+    }
+
+    /**
      * Set the method.
      *
      * @param method the method.
      */
     public void setMethod(Method method) {
         this.method = method;
-    }
-
-    /**
-     * Set the request mapping.
-     *
-     * @param requestMapping the request mapping.
-     */
-    public void setRequestMapping(String requestMapping) {
-        this.requestMapping = requestMapping;
     }
 
     /**

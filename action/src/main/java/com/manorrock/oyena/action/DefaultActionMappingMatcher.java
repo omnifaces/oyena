@@ -67,7 +67,7 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
                     result = new ActionMappingMatch();
                     result.setBean(bean);
                     result.setMethod(method.getJavaMember());
-                    result.setRequestMapping(mapping);
+                    result.setActionMapping(mapping);
                     result.setMappingType(ActionMappingMatch.MappingType.EXACT);
                     break;
                 } else if (mapping.endsWith("*")) {
@@ -77,12 +77,12 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
                             result = new ActionMappingMatch();
                             result.setBean(bean);
                             result.setMethod(method.getJavaMember());
-                            result.setRequestMapping(mapping);
+                            result.setActionMapping(mapping);
                             result.setMappingType(ActionMappingMatch.MappingType.PREFIX);
                         } else if (mapping.length() > result.getLength()) {
                             result.setBean(bean);
                             result.setMethod(method.getJavaMember());
-                            result.setRequestMapping(mapping);
+                            result.setActionMapping(mapping);
                             result.setMappingType(ActionMappingMatch.MappingType.PREFIX);
                         }
                     }
@@ -92,7 +92,7 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
                         result = new ActionMappingMatch();
                         result.setBean(bean);
                         result.setMethod(method.getJavaMember());
-                        result.setRequestMapping(mapping);
+                        result.setActionMapping(mapping);
                         result.setMappingType(ActionMappingMatch.MappingType.EXTENSION);
                         break;
                     }
@@ -125,6 +125,7 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
      * @param facesContext the Faces context.
      * @return the action mapping match.
      */
+    @Override
     public ActionMappingMatch match(FacesContext facesContext) {
         ActionMappingMatch match = null;
         Iterator<Bean<?>> beans = getBeans();
