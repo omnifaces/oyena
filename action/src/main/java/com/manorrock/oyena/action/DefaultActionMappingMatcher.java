@@ -114,8 +114,7 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
      */
     private Iterator<Bean<?>> getBeans() {
         Set<Bean<?>> beans = CDI.current().getBeanManager().getBeans(
-                Object.class, new AnnotationLiteral<Any>() {
-        });
+                Object.class, Any.Literal.INSTANCE);
         return beans.iterator();
     }
     

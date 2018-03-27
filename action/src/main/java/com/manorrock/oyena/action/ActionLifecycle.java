@@ -29,7 +29,6 @@ package com.manorrock.oyena.action;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.CDI;
-import javax.enterprise.util.AnnotationLiteral;
 import javax.faces.FacesException;
 import javax.faces.FactoryFinder;
 import javax.faces.component.UIViewRoot;
@@ -86,8 +85,7 @@ public class ActionLifecycle extends Lifecycle {
         ActionMappingMatch match = getActionMappingMatcher().match(facesContext);
         if (match != null) {
             Instance instance = CDI.current().select(
-                    match.getBean().getBeanClass(), new AnnotationLiteral<Any>() {
-            });
+                    match.getBean().getBeanClass(), Any.Literal.INSTANCE);
             String viewId;
             try {
                 viewId = (String) match.getMethod().invoke(instance.get(), new Object[0]);
@@ -111,8 +109,7 @@ public class ActionLifecycle extends Lifecycle {
     private synchronized ActionMappingMatcher getActionMappingMatcher() {
         if (actionMappingMatcher == null) {
             actionMappingMatcher = CDI.current().select(
-                    ActionMappingMatcher.class, new AnnotationLiteral<Any>() {
-            }).get();
+                    ActionMappingMatcher.class, Any.Literal.INSTANCE).get();
         }
         return actionMappingMatcher;
     }
