@@ -77,11 +77,18 @@
     <modules>
         <module>action</module>
         <module>action-test-webapp</module>
-        <module>html</module>
-        <module>html-test-webapp</module>
-        <module>rest</module>
-        <module>rest-test-webapp</module>
     </modules>
+    <profiles>
+        <profile>
+            <id>experimental</id>
+            <modules>
+                <module>html</module>
+                <module>html-test-webapp</module>
+                <module>rest</module>
+                <module>rest-test-webapp</module>
+            </modules>
+        </profile>
+    </profiles>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
