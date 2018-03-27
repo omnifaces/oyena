@@ -26,13 +26,8 @@
  */
 package com.manorrock.oyena.action;
 
-import java.util.Iterator;
-import java.util.Set;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.spi.AnnotatedMethod;
-import javax.enterprise.inject.spi.AnnotatedType;
-import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.CDI;
 import javax.enterprise.util.AnnotationLiteral;
 import javax.faces.FacesException;
@@ -50,6 +45,11 @@ import javax.faces.lifecycle.LifecycleFactory;
  * @status Beta
  */
 public class ActionLifecycle extends Lifecycle {
+
+    /**
+     * Stores the action mapping matcher.
+     */
+    private ActionMappingMatcher actionMappingMatcher;
 
     /**
      * Stores the default lifecycle.
@@ -76,67 +76,6 @@ public class ActionLifecycle extends Lifecycle {
     }
 
     /**
-     * Find the action mapping for the given bean.
-     *
-     * @param facesContext the Faces context.
-     * @param bean the bean.
-     * @return the action mapping match, or null if not found.
-     */
-    private ActionMappingMatch determineActionMappingMatch(FacesContext facesContext, Bean<?> bean) {
-        ActionMappingMatch result = null;
-        Class clazz = bean.getBeanClass();
-        AnnotatedType annotatedType = CDI.current().getBeanManager().createAnnotatedType(clazz);
-        Set<AnnotatedMethod> annotatedMethodSet = annotatedType.getMethods();
-        for (AnnotatedMethod method : annotatedMethodSet) {
-            if (method.isAnnotationPresent(ActionMapping.class)) {
-                ActionMapping requestMapping = method.getAnnotation(ActionMapping.class);
-                String mapping = requestMapping.value();
-                String pathInfo = facesContext.getExternalContext().getRequestPathInfo();
-                if (pathInfo.equals(mapping)) {
-                    result = new ActionMappingMatch();
-                    result.setBean(bean);
-                    result.setMethod(method.getJavaMember());
-                    result.setRequestMapping(mapping);
-                    result.setMappingType(ActionMappingMatch.MappingType.EXACT);
-                    break;
-                } else if (mapping.endsWith("*")) {
-                    mapping = mapping.substring(0, mapping.length() - 1);
-                    if (pathInfo.startsWith(mapping)) {
-                        if (result == null) {
-                            result = new ActionMappingMatch();
-                            result.setBean(bean);
-                            result.setMethod(method.getJavaMember());
-                            result.setRequestMapping(mapping);
-                            result.setMappingType(ActionMappingMatch.MappingType.PREFIX);
-                        } else if (mapping.length() > result.getLength()) {
-                            result.setBean(bean);
-                            result.setMethod(method.getJavaMember());
-                            result.setRequestMapping(mapping);
-                            result.setMappingType(ActionMappingMatch.MappingType.PREFIX);
-                        }
-                    }
-                } else if (mapping.startsWith("*")) {
-                    mapping = mapping.substring(1);
-                    if (pathInfo.endsWith(mapping)) {
-                        result = new ActionMappingMatch();
-                        result.setBean(bean);
-                        result.setMethod(method.getJavaMember());
-                        result.setRequestMapping(mapping);
-                        result.setMappingType(ActionMappingMatch.MappingType.EXTENSION);
-                        break;
-                    }
-                }
-            }
-            if (result != null
-                    && (result.getMappingType().equals(ActionMappingMatch.MappingType.EXACT)
-                    || (result.getMappingType().equals(ActionMappingMatch.MappingType.EXTENSION)))) {
-                break;
-            }
-        }
-        return result;
-    }
-
-    /**
      * Perform the execute part of Action lifecycle.
      *
      * @param facesContext the Faces context.
@@ -144,17 +83,7 @@ public class ActionLifecycle extends Lifecycle {
      */
     @Override
     public void execute(FacesContext facesContext) throws FacesException {
-        Iterator<Bean<?>> beans = getBeans();
-        ActionMappingMatch match = null;
-        while (beans.hasNext()) {
-            Bean<?> bean = beans.next();
-            ActionMappingMatch candidate = determineActionMappingMatch(facesContext, bean);
-            if (match == null) {
-                match = candidate;
-            } else if (candidate != null && candidate.getLength() > match.getLength()) {
-                match = candidate;
-            }
-        }
+        ActionMappingMatch match = getActionMappingMatcher().match(facesContext);
         if (match != null) {
             Instance instance = CDI.current().select(
                     match.getBean().getBeanClass(), new AnnotationLiteral<Any>() {
@@ -175,15 +104,17 @@ public class ActionLifecycle extends Lifecycle {
     }
 
     /**
-     * Get the beans.
+     * Get the action mapping matcher.
      *
-     * @return the beans.
+     * @return the action mapping matcher.
      */
-    private Iterator<Bean<?>> getBeans() {
-        Set<Bean<?>> beans = CDI.current().getBeanManager().getBeans(
-                Object.class, new AnnotationLiteral<Any>() {
-        });
-        return beans.iterator();
+    private synchronized ActionMappingMatcher getActionMappingMatcher() {
+        if (actionMappingMatcher == null) {
+            actionMappingMatcher = (ActionMappingMatcher) CDI.current().select(
+                    ActionMappingMatcher.class, new AnnotationLiteral<Any>() {
+            }).get();
+        }
+        return actionMappingMatcher;
     }
 
     /**

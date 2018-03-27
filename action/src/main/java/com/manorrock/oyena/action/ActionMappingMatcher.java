@@ -26,6 +26,8 @@
  */
 package com.manorrock.oyena.action;
 
+import javax.faces.context.FacesContext;
+
 /**
  * The action mapping matcher API.
  * 
@@ -33,4 +35,12 @@ package com.manorrock.oyena.action;
  * @status Beta
  */
 public interface ActionMappingMatcher {
+
+    /**
+     * Match request to an action mapping.
+     * 
+     * @param facesContext the Faces context.
+     * @return the action mapping match, or null if not found.
+     */
+    public ActionMappingMatch match(FacesContext facesContext);
 }

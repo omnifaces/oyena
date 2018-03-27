@@ -35,7 +35,7 @@ import javax.enterprise.inject.spi.Bean;
  * @author Manfred Riem (mriem@manorrock.com)
  * @status Beta
  */
-class ActionMappingMatch {
+public class ActionMappingMatch {
 
     /**
      * Stores the mapping type.
