@@ -110,7 +110,7 @@ public class ActionLifecycle extends Lifecycle {
      */
     private synchronized ActionMappingMatcher getActionMappingMatcher() {
         if (actionMappingMatcher == null) {
-            actionMappingMatcher = (ActionMappingMatcher) CDI.current().select(
+            actionMappingMatcher = CDI.current().select(
                     ActionMappingMatcher.class, new AnnotationLiteral<Any>() {
             }).get();
         }
