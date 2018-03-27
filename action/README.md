@@ -47,7 +47,7 @@ And you need to have a faces-config.xml in the WEB-INF directory with at minimum
 
 As the framework requires CDI you need to activate CDI.
 
-If you add an placeholder beans.xml to the WEB-INF directory it will take care of that.
+Add an placeholder beans.xml to the WEB-INF directory and it will take care of that:
 
     <beans xmlns="http://java.sun.com/xml/ns/javaee"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -57,9 +57,7 @@ If you add an placeholder beans.xml to the WEB-INF directory it will take care o
 
 ### Add a Servlet mapping with the correct lifecycle id
 
-Add a servlet mapping to the web.xml file. 
-
-For example:
+Add a servlet mapping to the web.xml file:
 
     <web-app 
          xmlns="http://java.sun.com/xml/ns/javaee"
@@ -91,7 +89,7 @@ To actually use it you wil need to create 2 components.
 ### Create a CDI bean
 
 Create a CDI bean with the following content and use your IDE to resolve the
-necessary imports.
+necessary imports:
 
     @RequestScoped
     public class IndexPageBean implements Serializable {
