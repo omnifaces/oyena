@@ -107,7 +107,7 @@ necessary imports:
 
 ### Create a Facelet page
 
-Create the Faces /index.xhtml in the root of your web application with the 
+Create the /index.xhtml Facelet page in the root of your web application with the 
 following content:
 
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
