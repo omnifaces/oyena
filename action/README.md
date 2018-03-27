@@ -129,5 +129,6 @@ Deploy the web application to the server of your choice.
 
 Assuming the web application is deployed at /myaction on your localhost server
 listening on port 8080 you would browse to http://localhost:8080/myaction/index.xhtml
+to try it.
 
 Enjoy!
