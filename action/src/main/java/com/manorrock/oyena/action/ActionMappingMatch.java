@@ -45,7 +45,7 @@ public class ActionMappingMatch {
     /**
      * Stores the mapping type.
      */
-    private MappingType mappingType;
+    private ActionMappingType mappingType;
 
     /**
      * Stores the bean.
@@ -89,7 +89,7 @@ public class ActionMappingMatch {
      *
      * @return the mapping type.
      */
-    public MappingType getMappingType() {
+    public ActionMappingType getMappingType() {
         return mappingType;
     }
 
@@ -125,7 +125,7 @@ public class ActionMappingMatch {
      *
      * @param mappingType the mapping type.
      */
-    public void setMappingType(MappingType mappingType) {
+    public void setMappingType(ActionMappingType mappingType) {
         this.mappingType = mappingType;
     }
 
@@ -138,21 +138,4 @@ public class ActionMappingMatch {
         this.method = method;
     }
 
-    /**
-     * Mapping type enum.
-     */
-    public enum MappingType {
-        /*
-         * An exact match.
-         */
-        EXACT,
-        /*
-         * A prefix match.
-         */
-        PREFIX,
-        /*
-         * An extension match.
-         */
-        EXTENSION
-    }
 }

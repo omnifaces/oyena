@@ -67,7 +67,7 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
                     result.setBean(bean);
                     result.setMethod(method.getJavaMember());
                     result.setActionMapping(mapping);
-                    result.setMappingType(ActionMappingMatch.MappingType.EXACT);
+                    result.setMappingType(ActionMappingType.EXACT);
                     break;
                 } else if (mapping.endsWith("*")) {
                     mapping = mapping.substring(0, mapping.length() - 1);
@@ -77,12 +77,12 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
                             result.setBean(bean);
                             result.setMethod(method.getJavaMember());
                             result.setActionMapping(mapping);
-                            result.setMappingType(ActionMappingMatch.MappingType.PREFIX);
+                            result.setMappingType(ActionMappingType.PREFIX);
                         } else if (mapping.length() > result.getLength()) {
                             result.setBean(bean);
                             result.setMethod(method.getJavaMember());
                             result.setActionMapping(mapping);
-                            result.setMappingType(ActionMappingMatch.MappingType.PREFIX);
+                            result.setMappingType(ActionMappingType.PREFIX);
                         }
                     }
                 } else if (mapping.startsWith("*")) {
@@ -92,14 +92,14 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
                         result.setBean(bean);
                         result.setMethod(method.getJavaMember());
                         result.setActionMapping(mapping);
-                        result.setMappingType(ActionMappingMatch.MappingType.EXTENSION);
+                        result.setMappingType(ActionMappingType.EXTENSION);
                         break;
                     }
                 }
             }
             if (result != null
-                    && (result.getMappingType().equals(ActionMappingMatch.MappingType.EXACT)
-                    || (result.getMappingType().equals(ActionMappingMatch.MappingType.EXTENSION)))) {
+                    && (result.getMappingType().equals(ActionMappingType.EXACT)
+                    || (result.getMappingType().equals(ActionMappingType.EXTENSION)))) {
                 break;
             }
         }
