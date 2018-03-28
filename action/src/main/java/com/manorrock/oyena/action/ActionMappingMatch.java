@@ -33,7 +33,7 @@ import javax.enterprise.inject.spi.Bean;
  * The action mapping match class.
  *
  * @author Manfred Riem (mriem@manorrock.com)
- * @status Beta
+ * @status Alpha
  */
 public class ActionMappingMatch {
 

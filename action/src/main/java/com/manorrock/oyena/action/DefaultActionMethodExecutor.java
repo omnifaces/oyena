@@ -38,6 +38,7 @@ import javax.faces.context.FacesContext;
  * The default action method executor.
  *
  * @author manfred
+ * @status Alpha
  */
 @ApplicationScoped
 public class DefaultActionMethodExecutor implements ActionMethodExecutor {

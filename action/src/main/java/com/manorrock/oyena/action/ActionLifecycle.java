@@ -39,7 +39,7 @@ import javax.faces.lifecycle.LifecycleFactory;
  * The Action lifecycle.
  *
  * @author Manfred Riem (mriem@manorrock.com)
- * @status Beta
+ * @status Alpha
  */
 public class ActionLifecycle extends Lifecycle {
 

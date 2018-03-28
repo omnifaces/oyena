@@ -40,7 +40,7 @@ import java.lang.annotation.Target;
  * </p>
  * 
  * @author Manfred Riem (mriem@manorrock.com)
- * @status Beta
+ * @status Alpha
  */
 @Documented
 @Target(value = {METHOD})

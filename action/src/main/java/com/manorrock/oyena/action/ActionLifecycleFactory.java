@@ -35,7 +35,7 @@ import javax.faces.lifecycle.LifecycleFactory;
  * The Action lifecycle factory.
  *
  * @author Manfred Riem (mriem@manorrock.com)
- * @status Beta
+ * @status Alpha
  */
 public class ActionLifecycleFactory extends LifecycleFactory {
 

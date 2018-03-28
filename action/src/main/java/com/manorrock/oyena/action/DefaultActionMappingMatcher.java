@@ -40,7 +40,7 @@ import javax.faces.context.FacesContext;
  * The default action mapping matcher.
  * 
  * @author Manfred Riem (mriem@manorrock.com)
- * @status Beta
+ * @status Alpha
  */
 @ApplicationScoped
 public class DefaultActionMappingMatcher implements ActionMappingMatcher {

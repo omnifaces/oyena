@@ -32,7 +32,7 @@ import javax.faces.context.FacesContext;
  * The action mapping matcher API.
  * 
  * @author Manfred Riem (mriem@manorrock.com)
- * @status Beta
+ * @status Alpha
  */
 public interface ActionMappingMatcher {
 
