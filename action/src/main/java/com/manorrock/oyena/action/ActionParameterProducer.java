@@ -27,10 +27,18 @@
 package com.manorrock.oyena.action;
 
 /**
- * The action parameter injector API.
+ * The action parameter producer API.
  * 
  * @author Manfred Riem (mriem@manorrock.com)
  * @status Alpha
  */
-public interface ActionParameterInjector {
+public interface ActionParameterProducer {
+
+    /**
+     * Produce an instance for the given type.
+     * 
+     * @param type the type.
+     * @return the instance.
+     */
+    public Object produce(Class<?> type);
 }

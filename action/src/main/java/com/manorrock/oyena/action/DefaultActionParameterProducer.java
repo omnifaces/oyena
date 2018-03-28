@@ -28,57 +28,24 @@ package com.manorrock.oyena.action;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Any;
-import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.CDI;
-import javax.faces.FacesException;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
 /**
- * The default action method executor.
- *
+ * The default action parameter producer.
+ * 
  * @author Manfred Riem (mriem@manorrock.com)
- * @status Alpha
  */
 @ApplicationScoped
-public class DefaultActionMethodExecutor implements ActionMethodExecutor {
+public class DefaultActionParameterProducer implements ActionParameterProducer {
 
     /**
-     * Stores the action parameter injector.
-     */
-    @Inject
-    private ActionParameterProducer actionParameterInjector;
-    
-    /**
-     * Execute the method.
-     *
-     * @param facesContext the Faces context.
-     * @param actionMappingMatch the action mapping match.
+     * Produce an instance for the given type.
+     * 
+     * @param type the type.
+     * @return the instance.
      */
     @Override
-    public void execute(FacesContext facesContext, ActionMappingMatch actionMappingMatch) {
-        Instance instance = CDI.current().select(
-                actionMappingMatch.getBean().getBeanClass(), Any.Literal.INSTANCE);
-        String viewId;
-        try {
-            Object[] parameters = new Object[actionMappingMatch.getMethod().getParameterCount()];
-            if (parameters.length > 0) {
-                for(int i=0; i<parameters.length; i++) {
-                    parameters[i] = actionParameterInjector.produce(
-                            actionMappingMatch.getMethod().getParameterTypes()[i]);
-                }
-            }
-            viewId = (String) actionMappingMatch.getMethod().invoke(
-                    instance.get(), parameters);
-        } catch (Throwable throwable) {
-            throw new FacesException(throwable);
-        }
-        if (facesContext.getViewRoot() == null) {
-            UIViewRoot viewRoot = new UIViewRoot();
-            viewRoot.setRenderKitId("HTML_BASIC");
-            viewRoot.setViewId(viewId);
-            facesContext.setViewRoot(viewRoot);
-        }
+    public Object produce(Class<?> type) {
+        return CDI.current().select(type, Any.Literal.INSTANCE).get();
     }
 }
