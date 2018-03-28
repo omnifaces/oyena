@@ -26,21 +26,44 @@
  */
 package com.manorrock.oyena.action;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
+import javax.enterprise.inject.spi.CDI;
+import javax.faces.FacesException;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
 /**
- * The action method executor API.
- * 
- * @author Manfred Riem (mriem@manorrock.com)
- * @status Beta
+ * The default action method executor.
+ *
+ * @author manfred
  */
-public interface ActionMethodExecutor {
-    
+@ApplicationScoped
+public class DefaultActionMethodExecutor implements ActionMethodExecutor {
+
     /**
      * Execute the method.
-     * 
+     *
      * @param facesContext the Faces context.
      * @param actionMappingMatch the action mapping match.
      */
-    public void execute(FacesContext facesContext, ActionMappingMatch actionMappingMatch);
+    @Override
+    public void execute(FacesContext facesContext, ActionMappingMatch actionMappingMatch) {
+        Instance instance = CDI.current().select(
+                actionMappingMatch.getBean().getBeanClass(), Any.Literal.INSTANCE);
+        String viewId;
+        try {
+            viewId = (String) actionMappingMatch.getMethod().invoke(
+                    instance.get(), new Object[0]);
+        } catch (Throwable throwable) {
+            throw new FacesException(throwable);
+        }
+        if (facesContext.getViewRoot() == null) {
+            UIViewRoot viewRoot = new UIViewRoot();
+            viewRoot.setRenderKitId("HTML_BASIC");
+            viewRoot.setViewId(viewId);
+            facesContext.setViewRoot(viewRoot);
+        }
+    }
 }

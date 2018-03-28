@@ -34,7 +34,6 @@ import javax.enterprise.inject.spi.AnnotatedMethod;
 import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.CDI;
-import javax.enterprise.util.AnnotationLiteral;
 import javax.faces.context.FacesContext;
 
 /**
