@@ -99,7 +99,7 @@ necessary imports:
        * 
        * @return /index.xhtml
        */
-      @ActionMapping("/index.xhtml")
+      @ActionMapping("/index")
       public String execute() {
         return "/index.xhtml";
       }
@@ -128,7 +128,7 @@ following content:
 Deploy the web application to the server of your choice.
 
 Assuming the web application is deployed at /myaction on your localhost server
-listening on port 8080 you would browse to http://localhost:8080/myaction/index.xhtml
+listening on port 8080 you would browse to http://localhost:8080/myaction/index
 to try it.
 
 Enjoy!

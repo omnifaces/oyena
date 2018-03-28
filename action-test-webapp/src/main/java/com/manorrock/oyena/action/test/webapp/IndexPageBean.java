@@ -20,7 +20,7 @@ public class IndexPageBean implements Serializable {
      * 
      * @return /index.xhtml
      */
-    @ActionMapping("/index.xhtml")
+    @ActionMapping("/index")
     public String execute() {
         return "/index.xhtml";
     }
