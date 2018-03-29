@@ -15,3 +15,7 @@ for the release you are using in the links below.
 ## Documentation for older releases
 
 1. [Version 2.3.0.0](https://github.com/manorrock/oyena/tree/2.3.0.0)
+
+## How do I contribute?
+
+See [Contributing](CONTRIBUTING.md)
