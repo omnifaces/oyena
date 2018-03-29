@@ -15,7 +15,7 @@ To use it in your web application you will need to do the following:
 1. Add the Maven dependency
 2. Add a faces-config.xml with the ActionLifecycleFactory
 3. Add a beans.xml
-4. Add a Servlet mapping with the correct lifecycle id
+4. Add a Servlet mapping for the Oyena Action Servlet
 
 ### Add the Maven dependency
 
@@ -55,7 +55,7 @@ Add an placeholder beans.xml to the WEB-INF directory and it will take care of t
                            http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
     </beans>
 
-### Add a Servlet mapping with the correct lifecycle id
+### Add a Servlet mapping for the Oyena Action Servlet
 
 Add a servlet mapping to the web.xml file:
 
@@ -65,16 +65,8 @@ Add a servlet mapping to the web.xml file:
 	 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
                              http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	 version="3.0">
-      <servlet>
-        <servlet-name>Action Servlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-        <init-param>
-          <param-name>javax.faces.LIFECYCLE_ID</param-name>
-          <param-value>com.manorrock.oyena.action.ActionLifecycle</param-value>
-        </init-param>
-      </servlet>
       <servlet-mapping>
-        <servlet-name>Action Servlet</servlet-name>
+        <servlet-name>Oyena Action Servlet</servlet-name>
         <url-pattern>/*</url-pattern>
       </servlet-mapping>
     </web-app>
