@@ -61,12 +61,11 @@ Add an placeholder beans.xml to the WEB-INF directory and it will take care of t
 
 Add a servlet mapping to the web.xml file:
 
-    <web-app 
-         xmlns="http://java.sun.com/xml/ns/javaee"
+    <web-app xmlns="http://java.sun.com/xml/ns/javaee"
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	 version="3.0">
+	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	 version="4.0">
       <servlet-mapping>
         <servlet-name>Oyena Action Servlet</servlet-name>
         <url-pattern>/*</url-pattern>
