@@ -11,6 +11,12 @@
         Manorrock Oyena delivers you with several add-on modules that you can use
         with Eclipse Mojarra
     </description>
+    <licenses>
+        <license>
+            <name>Manorrock License</name>
+            <url>https://github.com/manorrock/oyena/blob/master/LICENSE</url>
+        </license>
+    </licenses>
     <build>
         <pluginManagement>
             <plugins>
