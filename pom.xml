@@ -182,4 +182,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <scm>
+        <connection>scm:git:git://github.com/manorrock/oyena.git</connection>
+        <developerConnection>scm:git:git@github.com:manorrock/oyena.git</developerConnection>
+        <url>https://github.com/manorrock/oyena</url>
+    </scm>
 </project>
