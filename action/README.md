@@ -49,10 +49,12 @@ As the framework requires CDI you need to activate CDI.
 
 Add an placeholder beans.xml to the WEB-INF directory and it will take care of that:
 
-    <beans xmlns="http://java.sun.com/xml/ns/javaee"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-                           http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
+    <beans
+        xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+                            http://xmlns.jcp.org/xml/ns/javaee/beans_2_0.xsd"
+        bean-discovery-mode="all">
     </beans>
 
 ### Add a Servlet mapping for the Oyena Action Servlet
