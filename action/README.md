@@ -33,11 +33,11 @@ Where you need to replace x.y.z with the version you want to use.
 
 And you need to have a faces-config.xml in the WEB-INF directory with at minimum the following:
 
-    <faces-config version="2.2"
+    <faces-config version="2.3"
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
-                                  http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+                                  http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
       <factory>
         <lifecycle-factory>com.manorrock.oyena.action.ActionLifecycleFactory</lifecycle-factory>
       </factory>
