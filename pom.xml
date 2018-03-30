@@ -136,6 +136,14 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <developers>
+        <developer>
+            <id>mriem</id>
+            <name>Manfred Riem</name>
+            <email>mriem@manorrock.com</email>
+            <organization>Manorrock.com</organization>
+        </developer>
+    </developers>
     <modules>
         <module>action</module>
         <module>action-test-webapp</module>
