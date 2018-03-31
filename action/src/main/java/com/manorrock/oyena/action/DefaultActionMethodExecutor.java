@@ -75,9 +75,7 @@ public class DefaultActionMethodExecutor implements ActionMethodExecutor {
             throw new FacesException(throwable);
         }
         if (facesContext.getViewRoot() == null) {
-            UIViewRoot viewRoot = new UIViewRoot();
-            viewRoot.setRenderKitId("HTML_BASIC");
-            viewRoot.setViewId(viewId);
+            UIViewRoot viewRoot = facesContext.getApplication().getViewHandler().createView(facesContext, viewId);
             facesContext.setViewRoot(viewRoot);
         }
     }
