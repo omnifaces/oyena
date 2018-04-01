@@ -26,6 +26,7 @@
  */
 package com.manorrock.oyena.action;
 
+import java.io.IOException;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.spi.CDI;
 import javax.faces.FacesException;
@@ -47,7 +48,7 @@ public class ActionLifecycle extends Lifecycle {
      * Stores the action mapping matcher.
      */
     private ActionMappingMatcher actionMappingMatcher;
-    
+
     /**
      * Stores the action method executor.
      */
@@ -89,8 +90,12 @@ public class ActionLifecycle extends Lifecycle {
         if (match != null) {
             getActionMethodExecutor().execute(facesContext, match);
         } else {
-            facesContext.getExternalContext().setResponseStatus(400);
-            facesContext.renderResponse();
+            try {
+                facesContext.getExternalContext().responseSendError(404, "Unable to match view");
+                facesContext.responseComplete();
+            } catch (IOException ioe) {
+                throw new FacesException(ioe);
+            }
         }
     }
 
@@ -106,10 +111,10 @@ public class ActionLifecycle extends Lifecycle {
         }
         return actionMappingMatcher;
     }
-    
+
     /**
      * Get the action method executor.
-     * 
+     *
      * @return the action method executor.
      */
     private synchronized ActionMethodExecutor getActionMethodExecutor() {
@@ -176,6 +181,8 @@ public class ActionLifecycle extends Lifecycle {
      */
     @Override
     public void render(FacesContext facesContext) throws FacesException {
-        getDefaultLifecycle().render(facesContext);
+        if (!facesContext.getResponseComplete()) {
+            getDefaultLifecycle().render(facesContext);
+        }
     }
 }
