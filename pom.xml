@@ -149,14 +149,12 @@
     </developers>
     <modules>
         <module>action</module>
-        <module>action-test-webapp</module>
     </modules>
     <profiles>
         <profile>
             <id>experimental</id>
             <modules>
                 <module>rest</module>
-                <module>rest-test-webapp</module>
             </modules>
         </profile>
         <profile>
