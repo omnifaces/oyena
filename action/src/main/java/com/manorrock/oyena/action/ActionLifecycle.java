@@ -131,8 +131,8 @@ public class ActionLifecycle extends Lifecycle {
      * <p>
      * FIXME - This method lazily gets the default lifecycle as FactoryFinder is
      * not properly re-entrant. We should be able to initialize the
-     * defaultLifecycle variable in the constructor of this class. An issue
-     * should be filed for this.
+     * defaultLifecycle variable in the constructor of this class. 
+     * See https://github.com/eclipse-ee4j/mojarra/issues/4379
      * </p>
      *
      * @return the default lifecycle.

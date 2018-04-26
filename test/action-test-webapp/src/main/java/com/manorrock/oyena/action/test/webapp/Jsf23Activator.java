@@ -38,7 +38,7 @@ import javax.faces.annotation.FacesConfig;
 @FacesConfig(version = FacesConfig.Version.JSF_2_3)
 public class Jsf23Activator {
     /* 
-     * FIXME - Note this class should not be necessary. An issue should be filed 
-     *         to make JSF 2.3 mode the default mode of operation.
+     * FIXME - Note this class should not be necessary. 
+     *         See https://github.com/eclipse-ee4j/mojarra/issues/4378
      */
 }
