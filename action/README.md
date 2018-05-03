@@ -13,7 +13,7 @@ Your project should already be configured to use Eclipse Mojarra.
 To use it in your web application you will need to do the following:
 
 1. Add the Maven dependency
-2. Add a faces-config.xml with the ActionLifecycleFactory
+2. Add a faces-config.xml with the CdiLifecycleFactory
 3. Add a beans.xml
 4. Add a Servlet mapping for the Oyena Action Servlet
 
@@ -29,7 +29,7 @@ Add the following Maven dependency:
 
 Where you need to replace x.y.z with the version you want to use.
 
-### Add a faces-config.xml with the ActionLifecycleFactory
+### Add a faces-config.xml with the CdiLifecycleFactory
 
 And you need to have a faces-config.xml in the WEB-INF directory with at minimum the following:
 
@@ -39,7 +39,7 @@ And you need to have a faces-config.xml in the WEB-INF directory with at minimum
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
                                   http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
       <factory>
-        <lifecycle-factory>com.manorrock.oyena.action.ActionLifecycleFactory</lifecycle-factory>
+        <lifecycle-factory>com.manorrock.oyena.cdi.CdiLifecycleFactory</lifecycle-factory>
       </factory>
     </faces-config>
 

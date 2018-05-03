@@ -27,31 +27,35 @@
 package com.manorrock.oyena.action;
 
 import java.io.IOException;
-import javax.enterprise.inject.Any;
-import javax.enterprise.inject.spi.CDI;
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.FacesException;
 import javax.faces.FactoryFinder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.lifecycle.LifecycleFactory;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * The Action lifecycle.
  *
  * @author Manfred Riem (mriem@manorrock.com)
- * @status Alpha
  */
+@ApplicationScoped
+@Named("com.manorrock.oyena.action.ActionLifecycle")
 public class ActionLifecycle extends Lifecycle {
 
     /**
      * Stores the action mapping matcher.
      */
+    @Inject
     private ActionMappingMatcher actionMappingMatcher;
 
     /**
      * Stores the action method executor.
      */
+    @Inject
     private ActionMethodExecutor actionMethodExecutor;
 
     /**
@@ -86,9 +90,9 @@ public class ActionLifecycle extends Lifecycle {
      */
     @Override
     public void execute(FacesContext facesContext) throws FacesException {
-        ActionMappingMatch match = getActionMappingMatcher().match(facesContext);
+        ActionMappingMatch match = actionMappingMatcher.match(facesContext);
         if (match != null) {
-            getActionMethodExecutor().execute(facesContext, match);
+            actionMethodExecutor.execute(facesContext, match);
         } else {
             try {
                 facesContext.getExternalContext().responseSendError(404, "Unable to match view");
@@ -97,32 +101,6 @@ public class ActionLifecycle extends Lifecycle {
                 throw new FacesException(ioe);
             }
         }
-    }
-
-    /**
-     * Get the action mapping matcher.
-     *
-     * @return the action mapping matcher.
-     */
-    private synchronized ActionMappingMatcher getActionMappingMatcher() {
-        if (actionMappingMatcher == null) {
-            actionMappingMatcher = CDI.current().select(
-                    ActionMappingMatcher.class, Any.Literal.INSTANCE).get();
-        }
-        return actionMappingMatcher;
-    }
-
-    /**
-     * Get the action method executor.
-     *
-     * @return the action method executor.
-     */
-    private synchronized ActionMethodExecutor getActionMethodExecutor() {
-        if (actionMethodExecutor == null) {
-            actionMethodExecutor = CDI.current().select(
-                    ActionMethodExecutor.class, Any.Literal.INSTANCE).get();
-        }
-        return actionMethodExecutor;
     }
 
     /**

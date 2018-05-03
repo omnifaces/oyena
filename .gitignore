@@ -3,4 +3,5 @@
 */faces-config.NavData
 */nb-configuration.xml
 */target/
-/*/*/target/
+*/*/nb-configuration.xml
+*/*/target/

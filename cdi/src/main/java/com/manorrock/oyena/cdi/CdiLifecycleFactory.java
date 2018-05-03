@@ -24,7 +24,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.manorrock.oyena.action;
+package com.manorrock.oyena.cdi;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -41,49 +41,27 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 /**
- * The Action lifecycle factory.
- * 
- * <p>
- *  This lifecycle factory has been deprecated in favor of the CdiLifecycleFactory.
- *  It will be removed in version 2.3.3.0.
- * </p>
+ * The CDI lifecycle factory.
  *
  * @author Manfred Riem (mriem@manorrock.com)
- * @deprecated
  */
-public class ActionLifecycleFactory extends LifecycleFactory {
+public class CdiLifecycleFactory extends LifecycleFactory {
 
     /**
-     * Stores the action lifecycle id.
+     * Stores the bean manager.
      */
-    private static final String LIFECYCLE_ID = "com.manorrock.oyena.action.ActionLifecycle";
-
-    /**
-     * Stores the action lifecycle.
-     */
-    private ActionLifecycle actionLifecycle;
+    public BeanManager beanManager;
 
     /**
      * Constructor.
      *
      * @param wrapped the wrapped lifecycle factory.
      */
-    public ActionLifecycleFactory(LifecycleFactory wrapped) {
+    public CdiLifecycleFactory(LifecycleFactory wrapped) {
         super(wrapped);
         try {
             InitialContext initialContext = new InitialContext();
-            BeanManager beanManager = (BeanManager) initialContext.lookup("java:comp/BeanManager");
-            AnnotatedType<Lifecycle> type = beanManager.createAnnotatedType(Lifecycle.class);
-            Set<Bean<?>> beans = beanManager.getBeans(type.getBaseType(), NamedLiteral.of(LIFECYCLE_ID));
-            Iterator<Bean<?>> iterator = beans.iterator();
-            while (iterator.hasNext()) {
-                Bean<?> bean = iterator.next();
-                Named named = bean.getBeanClass().getAnnotation(Named.class);
-                if (named.value().equals(LIFECYCLE_ID)) {
-                    actionLifecycle = (ActionLifecycle) CDI.current().select(named).get();
-                    break;
-                }
-            }
+            beanManager = (BeanManager) initialContext.lookup("java:comp/BeanManager");
         } catch (NamingException ne) {
         }
     }
@@ -96,7 +74,7 @@ public class ActionLifecycleFactory extends LifecycleFactory {
      */
     @Override
     public void addLifecycle(String lifecycleId, Lifecycle lifecycle) {
-        getWrapped().addLifecycle(lifecycleId, lifecycle);
+        // because we are using CDI to manage our lifecycles this is a no-op.
     }
 
     /**
@@ -107,11 +85,21 @@ public class ActionLifecycleFactory extends LifecycleFactory {
      */
     @Override
     public Lifecycle getLifecycle(String lifecycleId) {
-        Lifecycle result;
-        if (lifecycleId.equals(ActionLifecycle.class.getName())) {
-            result = actionLifecycle;
-        } else {
+        Lifecycle result = null;
+        if (lifecycleId.equals(LifecycleFactory.DEFAULT_LIFECYCLE)) {
             result = getWrapped().getLifecycle(lifecycleId);
+        } else {
+            AnnotatedType<Lifecycle> type = beanManager.createAnnotatedType(Lifecycle.class);
+            Set<Bean<?>> beans = beanManager.getBeans(type.getBaseType(), NamedLiteral.of(lifecycleId));
+            Iterator<Bean<?>> iterator = beans.iterator();
+            while (iterator.hasNext()) {
+                Bean<?> bean = iterator.next();
+                Named named = bean.getBeanClass().getAnnotation(Named.class);
+                if (named.value().equals(lifecycleId)) {
+                    result = (Lifecycle) CDI.current().select(named).get();
+                    break;
+                }
+            }
         }
         return result;
     }
@@ -125,7 +113,16 @@ public class ActionLifecycleFactory extends LifecycleFactory {
     public Iterator<String> getLifecycleIds() {
         ArrayList<String> lifecycleIds = new ArrayList<>();
         getWrapped().getLifecycleIds().forEachRemaining(lifecycleIds::add);
-        lifecycleIds.add(ActionLifecycle.class.getName());
+        AnnotatedType<Lifecycle> type = beanManager.createAnnotatedType(Lifecycle.class);
+        Set<Bean<?>> beans = beanManager.getBeans(type.getBaseType());
+        Iterator<Bean<?>> iterator = beans.iterator();
+        while (iterator.hasNext()) {
+            Bean<?> bean = iterator.next();
+            if (bean.getBeanClass().isAnnotationPresent(Named.class)) {
+                Named named = bean.getBeanClass().getAnnotation(Named.class);
+                lifecycleIds.add(named.value());
+            }
+        }
         return lifecycleIds.iterator();
     }
 }

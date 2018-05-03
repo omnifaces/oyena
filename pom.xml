@@ -149,12 +149,12 @@
     </developers>
     <modules>
         <module>action</module>
+        <module>cdi</module>
     </modules>
     <profiles>
         <profile>
             <id>experimental</id>
             <modules>
-                <module>cdi</module>
                 <module>rest</module>
             </modules>
         </profile>
