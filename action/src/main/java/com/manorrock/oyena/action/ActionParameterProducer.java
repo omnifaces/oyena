@@ -30,7 +30,6 @@ package com.manorrock.oyena.action;
  * The action parameter producer API.
  * 
  * @author Manfred Riem (mriem@manorrock.com)
- * @status Alpha
  */
 public interface ActionParameterProducer {
 

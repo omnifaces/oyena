@@ -39,7 +39,6 @@ import javax.inject.Inject;
  * The default action method executor.
  *
  * @author Manfred Riem (mriem@manorrock.com)
- * @status Alpha
  */
 @ApplicationScoped
 public class DefaultActionMethodExecutor implements ActionMethodExecutor {
