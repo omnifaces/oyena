@@ -3,17 +3,20 @@
  */
 package com.manorrock.oyena.rest;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
+import javax.inject.Named;
 
 /**
  * The REST lifecycle.
  *
  * @author Manfred Riem (mriem@manorrock.com)
- * @status Experimental
  */
+@ApplicationScoped
+@Named("com.manorrock.oyena.rest.RestLifecycle")
 public class RestLifecycle extends Lifecycle {
 
     /**
