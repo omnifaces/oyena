@@ -10,7 +10,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Target;
 
 /**
- * The REST regular expression mapping.
+ * The default REST path.
  * 
  * <p>
  *  This mapping type uses the same syntax as the regular expression API in Java.
@@ -21,7 +21,7 @@ import java.lang.annotation.Target;
 @Documented
 @Target(value = {METHOD})
 @Retention(value = RUNTIME)
-public @interface RegexPath {
+public @interface RestPath {
     
     /**
      * Get the regular expression.
