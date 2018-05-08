@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 @Documented
 @Target(value = {METHOD})
 @Retention(value = RUNTIME)
-public @interface UrlPatternPath {
+public @interface RestUrlPath {
     
     /**
      * Get the URL pattern.
