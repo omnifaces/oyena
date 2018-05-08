@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 @Documented
 @Target(value = {METHOD})
 @Retention(value = RUNTIME)
-public @interface HttpMethod {
+public @interface RestMethod {
     
     /**
      * Get the HTTP method.
