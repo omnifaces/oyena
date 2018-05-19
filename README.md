@@ -15,10 +15,11 @@ for the release you are using in the links below.
 
 ## Documentation for older releases
 
-1. [Version 2.3.1.0](https://github.com/manorrock/oyena/tree/v2.3.1.0)
-2. [Version 2.3.0.2](https://github.com/manorrock/oyena/tree/v2.3.0.2), first release on Maven central
-3. [Version 2.3.0.1](https://github.com/manorrock/oyena/tree/v2.3.0.1)
-4. [Version 2.3.0.0](https://github.com/manorrock/oyena/tree/v2.3.0.0), first release
+1. [Version 2.3.2.0](https://github.com/manorrock/oyena/tree/v2.3.2.0), adds CDI add-on
+2. [Version 2.3.1.0](https://github.com/manorrock/oyena/tree/v2.3.1.0)
+3. [Version 2.3.0.2](https://github.com/manorrock/oyena/tree/v2.3.0.2), first release on Maven central
+4. [Version 2.3.0.1](https://github.com/manorrock/oyena/tree/v2.3.0.1)
+5. [Version 2.3.0.0](https://github.com/manorrock/oyena/tree/v2.3.0.0), first release
 
 ## How do I contribute?
 
