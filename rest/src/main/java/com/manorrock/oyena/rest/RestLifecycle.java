@@ -26,11 +26,13 @@
  */
 package com.manorrock.oyena.rest;
 
+import java.io.IOException;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -41,6 +43,18 @@ import javax.inject.Named;
 @ApplicationScoped
 @Named("com.manorrock.oyena.rest.RestLifecycle")
 public class RestLifecycle extends Lifecycle {
+    
+    /**
+     * Stores the REST mapping matcher.
+     */
+    @Inject
+    private RestMappingMatcher restMappingMatcher;
+    
+    /**
+     * Stores the REST method executor.
+     */
+    @Inject
+    private RestMethodExecutor restMethodExecutor;
 
     /**
      * Add a phase listener.
@@ -63,6 +77,19 @@ public class RestLifecycle extends Lifecycle {
      */
     @Override
     public void execute(FacesContext facesContext) throws FacesException {
+        RestMappingMatch match = restMappingMatcher.match(facesContext);
+        if (match != null) {
+            Object result = restMethodExecutor.execute(facesContext, match);
+            facesContext.getAttributes().put(
+                    RestLifecycle.class.getPackage().getName() + ".RestResult", result);
+        } else {
+            try {
+                facesContext.getExternalContext().responseSendError(404, "Unable to match request");
+                facesContext.responseComplete();
+            } catch (IOException ioe) {
+                throw new FacesException(ioe);
+            }
+        }
     }
 
     /**

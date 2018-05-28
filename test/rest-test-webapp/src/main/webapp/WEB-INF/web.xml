@@ -6,6 +6,6 @@
 	 version="4.0">
     <servlet-mapping>
         <servlet-name>Oyena REST Servlet</servlet-name>
-        <url-pattern>/rest/*</url-pattern>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
 </web-app>
