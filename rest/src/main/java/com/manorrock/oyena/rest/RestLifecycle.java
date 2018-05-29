@@ -29,11 +29,15 @@ package com.manorrock.oyena.rest;
 import java.io.IOException;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.FacesException;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 
 /**
  * The REST lifecycle.
@@ -43,13 +47,13 @@ import javax.inject.Named;
 @ApplicationScoped
 @Named("com.manorrock.oyena.rest.RestLifecycle")
 public class RestLifecycle extends Lifecycle {
-    
+
     /**
      * Stores the REST mapping matcher.
      */
     @Inject
     private RestMappingMatcher restMappingMatcher;
-    
+
     /**
      * Stores the REST method executor.
      */
@@ -128,5 +132,42 @@ public class RestLifecycle extends Lifecycle {
      */
     @Override
     public void render(FacesContext facesContext) throws FacesException {
+        if (!facesContext.getResponseComplete()) {
+            Object result = facesContext.getAttributes().get(
+                    RestLifecycle.class.getPackage().getName() + ".RestResult");
+            if (result == null) {
+                try {
+                    facesContext.getExternalContext().responseSendError(204, "No content");
+                    facesContext.responseComplete();
+                } catch (IOException ioe) {
+                    throw new FacesException(ioe);
+                }
+            } else {
+                ExternalContext externalContext = facesContext.getExternalContext();
+                String responseContentType = externalContext.getResponseContentType();
+                if (responseContentType == null) {
+                    responseContentType = "application/json";
+                }
+                switch (responseContentType) {
+                    case "application/json":
+                        try {
+                            Jsonb jsonb = JsonbBuilder.create();
+                            ResponseWriter responseWriter = facesContext.getResponseWriter();
+                            responseWriter.write(jsonb.toJson(result));
+                        } catch (IOException ioe) {
+                            throw new FacesException(ioe);
+                        }   break;
+                    case "text/plain":
+                        try {
+                            ResponseWriter responseWriter = facesContext.getResponseWriter();
+                            responseWriter.write(result.toString());
+                        } catch (IOException ioe) {
+                            throw new FacesException(ioe);
+                        }   break;
+                    default:
+                        throw new FacesException("Not implemented yet!");
+                }
+            }
+        }
     }
 }
