@@ -26,25 +26,84 @@
  */
 package com.manorrock.oyena.rest;
 
+import java.util.Iterator;
+import java.util.Set;
+import java.util.regex.Pattern;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.spi.AnnotatedMethod;
+import javax.enterprise.inject.spi.AnnotatedType;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.CDI;
 import javax.faces.context.FacesContext;
 
 /**
  * The default REST mapping matcher.
- * 
+ *
  * @author Manfred Riem (mriem@manorrock.com)
  */
 @ApplicationScoped
 public class DefaultRestMappingMatcher implements RestMappingMatcher {
-     
+
     /**
-     * Match the request to a RESt mapping.
-     * 
+     * Find the REST mapping for the given bean.
+     *
+     * @param facesContext the Faces context.
+     * @param bean the bean.
+     * @return the REST mapping match, or null if not found.
+     */
+    private RestMappingMatch determineRestMappingMatch(FacesContext facesContext, Bean<?> bean) {
+        RestMappingMatch result = null;
+        Class clazz = bean.getBeanClass();
+        AnnotatedType annotatedType = CDI.current().getBeanManager().createAnnotatedType(clazz);
+        Set<AnnotatedMethod> annotatedMethodSet = annotatedType.getMethods();
+        for (AnnotatedMethod method : annotatedMethodSet) {
+            if (method.isAnnotationPresent(RestPath.class)) {
+                RestPath restPath = method.getAnnotation(RestPath.class);
+                String path = restPath.value();
+                String pathInfo = facesContext.getExternalContext().getRequestPathInfo();
+                if (Pattern.matches(path, pathInfo)) {
+                    result = new RestMappingMatch();
+                    result.setBean(bean);
+                    result.setMethod(method.getJavaMember());
+                    result.setPathInfo(pathInfo);
+                    result.setRestPath(path);
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Get the beans.
+     *
+     * @return the beans.
+     */
+    private Iterator<Bean<?>> getBeans() {
+        Set<Bean<?>> beans = CDI.current().getBeanManager().getBeans(
+                Object.class, Any.Literal.INSTANCE);
+        return beans.iterator();
+    }
+
+    /**
+     * Match the request to a REST mapping.
+     *
      * @param facesContext the Faces context.
      * @return the REST mapping match.
      */
     @Override
     public RestMappingMatch match(FacesContext facesContext) {
-        return null;
+        RestMappingMatch match = null;
+        Iterator<Bean<?>> beans = getBeans();
+        while (beans.hasNext()) {
+            Bean<?> bean = beans.next();
+            RestMappingMatch candidate = determineRestMappingMatch(facesContext, bean);
+            if (match == null) {
+                match = candidate;
+            } else if (candidate != null && candidate.getLength() > match.getLength()) {
+                match = candidate;
+            }
+        }
+        return match;
     }
 }

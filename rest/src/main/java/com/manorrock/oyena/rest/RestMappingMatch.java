@@ -37,11 +37,6 @@ import javax.enterprise.inject.spi.Bean;
 public class RestMappingMatch {
 
     /**
-     * Stores the REST mapping.
-     */
-    private String restMapping;
-
-    /**
      * Stores the bean.
      */
     private Bean<?> bean;
@@ -52,13 +47,14 @@ public class RestMappingMatch {
     private Method method;
 
     /**
-     * Get the REST mapping.
-     * 
-     * @return the REST mapping.
+     * Stores the path info.
      */
-    public String getRestMapping() {
-        return restMapping;
-    }
+    private String pathInfo;
+
+    /**
+     * Stores the RestPath.
+     */
+    private String restPath;
 
     /**
      * Get the bean.
@@ -75,7 +71,7 @@ public class RestMappingMatch {
      * @return the length.
      */
     public int getLength() {
-        return restMapping.length();
+        return pathInfo.length();
     }
 
     /**
@@ -88,12 +84,21 @@ public class RestMappingMatch {
     }
 
     /**
-     * Set the REST mapping.
+     * Get the path info.
      *
-     * @param restMapping the REST mapping.
+     * @return the path info.
      */
-    public void setRestMapping(String restMapping) {
-        this.restMapping = restMapping;
+    public String getPathInfo() {
+        return pathInfo;
+    }
+
+    /**
+     * Get the REST path.
+     *
+     * @return the REST path.
+     */
+    public String getRestPath() {
+        return restPath;
     }
 
     /**
@@ -112,5 +117,23 @@ public class RestMappingMatch {
      */
     public void setMethod(Method method) {
         this.method = method;
+    }
+
+    /**
+     * Set the path info.
+     *
+     * @param pathInfo the path info.
+     */
+    public void setPathInfo(String pathInfo) {
+        this.pathInfo = pathInfo;
+    }
+
+    /**
+     * Set the REST path.
+     *
+     * @param restPath the REST path.
+     */
+    public void setRestPath(String restPath) {
+        this.restPath = restPath;
     }
 }
