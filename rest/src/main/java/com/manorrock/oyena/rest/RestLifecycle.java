@@ -27,6 +27,7 @@
 package com.manorrock.oyena.rest;
 
 import java.io.IOException;
+import java.io.Writer;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
@@ -146,24 +147,29 @@ public class RestLifecycle extends Lifecycle {
                 ExternalContext externalContext = facesContext.getExternalContext();
                 String responseContentType = externalContext.getResponseContentType();
                 if (responseContentType == null) {
+                    externalContext.setResponseContentType("application/json");
                     responseContentType = "application/json";
                 }
                 switch (responseContentType) {
                     case "application/json":
                         try {
                             Jsonb jsonb = JsonbBuilder.create();
-                            ResponseWriter responseWriter = facesContext.getResponseWriter();
-                            responseWriter.write(jsonb.toJson(result));
+                            Writer writer = externalContext.getResponseOutputWriter();
+                            writer.write(jsonb.toJson(result));
+                            writer.flush();
+                            facesContext.responseComplete();
                         } catch (IOException ioe) {
                             throw new FacesException(ioe);
-                        }   break;
+                        }
+                        break;
                     case "text/plain":
                         try {
                             ResponseWriter responseWriter = facesContext.getResponseWriter();
                             responseWriter.write(result.toString());
                         } catch (IOException ioe) {
                             throw new FacesException(ioe);
-                        }   break;
+                        }
+                        break;
                     default:
                         throw new FacesException("Not implemented yet!");
                 }

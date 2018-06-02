@@ -26,52 +26,18 @@
  */
 package com.manorrock.oyena.rest;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Any;
-import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.spi.CDI;
-import javax.faces.FacesException;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-
 /**
- * The default REST method executor.
- *
+ * The REST parameter producer API.
+ * 
  * @author Manfred Riem (mriem@manorrock.com)
  */
-@ApplicationScoped
-public class DefaultRestMethodExecutor implements RestMethodExecutor {
+public interface RestParameterProducer {
 
     /**
-     * Stores the REST parameter producer.
+     * Produce an instance for the given type.
+     * 
+     * @param type the type.
+     * @return the instance.
      */
-    @Inject
-    private RestParameterProducer restParameterProducer;
-
-    /**
-     * Execute the method.
-     *
-     * @param facesContext the Faces context.
-     * @param restMappingMatch the action mapping match.
-     */
-    @Override
-    public Object execute(FacesContext facesContext, RestMappingMatch restMappingMatch) {
-        Instance instance = CDI.current().select(
-                restMappingMatch.getBean().getBeanClass(), Any.Literal.INSTANCE);
-        Object result;
-        try {
-            Object[] parameters = new Object[restMappingMatch.getMethod().getParameterCount()];
-            if (parameters.length > 0) {
-                for (int i = 0; i < parameters.length; i++) {
-                    parameters[i] = restParameterProducer.produce(
-                            restMappingMatch.getMethod().getParameterTypes()[i]);
-                }
-            }
-            result = restMappingMatch.getMethod().invoke(instance.get(), parameters);
-        } catch (Throwable throwable) {
-            throw new FacesException(throwable);
-        }
-        return result;
-    }
+    public Object produce(Class<?> type);
 }
