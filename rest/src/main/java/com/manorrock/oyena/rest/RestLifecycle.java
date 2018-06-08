@@ -165,37 +165,19 @@ public class RestLifecycle extends Lifecycle {
     @Override
     public void render(FacesContext facesContext) throws FacesException {
         if (!facesContext.getResponseComplete()) {
-            Object result = facesContext.getAttributes().get(
-                    RestLifecycle.class.getPackage().getName() + ".RestResult");
-            if (result == null) {
-                try {
-                    facesContext.getExternalContext().responseSendError(204, "No content");
-                    facesContext.responseComplete();
-                } catch (IOException ioe) {
-                    throw new FacesException(ioe);
-                }
-            } else {
-                ExternalContext externalContext = facesContext.getExternalContext();
-                String responseContentType = externalContext.getResponseContentType();
-                if (responseContentType == null) {
-                    externalContext.setResponseContentType("application/json");
-                    responseContentType = "application/json";
-                }
-                switch (responseContentType) {
-                    case "application/json":
-                        getResponseWriter(responseContentType).writeResponse(facesContext);
-                        break;
-                    case "text/plain":
-                        try {
-                            ResponseWriter responseWriter = facesContext.getResponseWriter();
-                            responseWriter.write(result.toString());
-                        } catch (IOException ioe) {
-                            throw new FacesException(ioe);
-                        }
-                        break;
-                    default:
-                        throw new FacesException("Not implemented yet!");
-                }
+            ExternalContext externalContext = facesContext.getExternalContext();
+            String responseContentType = externalContext.getResponseContentType();
+            if (responseContentType == null) {
+                externalContext.setResponseContentType("application/json");
+                responseContentType = "application/json";
+            }
+            switch (responseContentType) {
+                case "application/json":
+                case "text/plain":
+                    getResponseWriter(responseContentType).writeResponse(facesContext);
+                    break;
+                default:
+                    throw new FacesException("Not implemented yet!");
             }
         }
     }
