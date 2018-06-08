@@ -27,8 +27,13 @@
 package com.manorrock.oyena.rest;
 
 import java.io.IOException;
-import java.io.Writer;
+import java.util.Iterator;
+import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.spi.AnnotatedType;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.CDI;
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -37,8 +42,6 @@ import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
 
 /**
  * The REST lifecycle.
@@ -48,6 +51,12 @@ import javax.json.bind.JsonbBuilder;
 @ApplicationScoped
 @Named("com.manorrock.oyena.rest.RestLifecycle")
 public class RestLifecycle extends Lifecycle {
+
+    /**
+     * Stores the bean manager.
+     */
+    @Inject
+    private BeanManager beanManager;
 
     /**
      * Stores the REST mapping matcher.
@@ -113,6 +122,28 @@ public class RestLifecycle extends Lifecycle {
     }
 
     /**
+     * Get the response writer for the response content type.
+     *
+     * @param responseContentType the response content type.
+     * @return the response writer.
+     */
+    public RestResponseWriter getResponseWriter(String responseContentType) {
+        RestResponseWriter result = null;
+        AnnotatedType<RestResponseWriter> type = beanManager.createAnnotatedType(RestResponseWriter.class);
+        Set<Bean<?>> beans = beanManager.getBeans(type.getBaseType());
+        Iterator<Bean<?>> iterator = beans.iterator();
+        while (iterator.hasNext()) {
+            Bean<?> bean = iterator.next();
+            RestResponseWriterContentType contentType = bean.getBeanClass().getAnnotation(RestResponseWriterContentType.class);
+            if (contentType != null && contentType.value().equals(responseContentType)) {
+                result = (RestResponseWriter) CDI.current().select(bean.getBeanClass()).get();
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
      * Remove a phase listener.
      *
      * <p>
@@ -152,15 +183,7 @@ public class RestLifecycle extends Lifecycle {
                 }
                 switch (responseContentType) {
                     case "application/json":
-                        try {
-                            Jsonb jsonb = JsonbBuilder.create();
-                            Writer writer = externalContext.getResponseOutputWriter();
-                            writer.write(jsonb.toJson(result));
-                            writer.flush();
-                            facesContext.responseComplete();
-                        } catch (IOException ioe) {
-                            throw new FacesException(ioe);
-                        }
+                        getResponseWriter(responseContentType).writeResponse(facesContext);
                         break;
                     case "text/plain":
                         try {

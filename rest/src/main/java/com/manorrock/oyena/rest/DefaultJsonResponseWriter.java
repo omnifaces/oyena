@@ -26,19 +26,66 @@
  */
 package com.manorrock.oyena.rest;
 
+import java.io.IOException;
+import java.io.Writer;
+import javax.enterprise.context.ApplicationScoped;
+import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 
 /**
- * The REST response writer API.
- * 
+ * The JSON (application/json) response writer.
+ *
  * @author Manfred Riem (mriem@manorrock.com)
  */
-public interface RestResponseWriter { 
+@ApplicationScoped
+@RestResponseWriterContentType("application/json")
+public class DefaultJsonResponseWriter implements RestResponseWriter {
+
+    /**
+     * Stores the JSON-B builder.
+     */
+    private final JsonbBuilder jsonbBuilder;
+    
+    /**
+     * Stores the JSON-B context.
+     */
+    private Jsonb jsonb;
+    
+    /**
+     * Constructor.
+     */
+    public DefaultJsonResponseWriter() {
+        jsonbBuilder = JsonbBuilder.newBuilder();
+        jsonb = jsonbBuilder.build();
+    }
     
     /**
      * Write the response.
      *
      * @param facesContext the Faces context.
      */
-    public void writeResponse(FacesContext facesContext);
+    @Override
+    public void writeResponse(FacesContext facesContext) {
+        Object result = facesContext.getAttributes().get(
+                RestLifecycle.class.getPackage().getName() + ".RestResult");
+        if (result == null) {
+            try {
+                facesContext.getExternalContext().responseSendError(204, "No content");
+                facesContext.responseComplete();
+            } catch (IOException ioe) {
+                throw new FacesException(ioe);
+            }
+        } else {
+            try { 
+               Writer writer = facesContext.getExternalContext().getResponseOutputWriter();
+                writer.write(jsonb.toJson(result));
+                writer.flush();
+                facesContext.responseComplete();
+            } catch (IOException ioe) {
+                throw new FacesException(ioe);
+            }
+        }
+    }
 }
