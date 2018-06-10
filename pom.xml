@@ -64,15 +64,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <inherited>true</inherited>
-                <configuration>
-                    <tags>
-                        <tag>
-                            <name>status</name>
-                            <placement>a</placement>
-                            <head>Status:</head>
-                        </tag>
-                    </tags>
-                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
