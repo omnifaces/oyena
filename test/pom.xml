@@ -15,13 +15,6 @@
     <name>Manorrock Oyena Test Project</name>
     <modules>
         <module>action-test-webapp</module>
+        <module>rest-test-webapp</module>
     </modules>
-    <profiles>
-        <profile>
-            <id>experimental</id>
-            <modules>
-                <module>rest-test-webapp</module>
-            </modules>
-        </profile>
-    </profiles>
 </project>
