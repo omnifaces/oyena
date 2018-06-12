@@ -119,6 +119,11 @@
                 <version>2.3</version>
             </dependency>
             <dependency>
+                <groupId>javax.json.bind</groupId>
+                <artifactId>javax.json.bind-api</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
                 <groupId>org.glassfish</groupId>
                 <artifactId>javax.faces</artifactId>
                 <version>2.3.3</version>
@@ -140,7 +145,8 @@
     </developers>
     <modules>
         <module>action</module>
-        <module>cdi</module><module>rest</module>
+        <module>cdi</module>
+        <module>rest</module>
     </modules>
     <profiles>
         <profile>

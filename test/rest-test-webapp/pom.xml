@@ -14,15 +14,15 @@
     <name>Manorrock Oyena REST Test Webapp</name>
     <dependencies>
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>com.manorrock.oyena</groupId>
             <artifactId>oyena-rest</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <properties>
