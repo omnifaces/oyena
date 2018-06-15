@@ -8,6 +8,7 @@ See the list below for the add-on modules that are available.
 
 1. [Action framework add-on](action/README.md)
 2. [CDI add-on](cdi/README.md)
+2. [REST add-on](rest/README.md)
 
 Note the documentation for the master branch might show features that are NOT 
 yet available as it is under active development. Please see the documentation
