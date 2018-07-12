@@ -6,6 +6,6 @@
 	 version="4.0">
     <servlet-mapping>
         <servlet-name>Oyena Action Servlet</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/action/*</url-pattern>
     </servlet-mapping>
 </web-app>

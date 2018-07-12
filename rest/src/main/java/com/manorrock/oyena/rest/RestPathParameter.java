@@ -24,39 +24,28 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.manorrock.oyena.rest.test.webapp;
+package com.manorrock.oyena.rest;
 
-import com.manorrock.oyena.rest.RestPath;
-import com.manorrock.oyena.rest.RestPathParameter;
-import java.io.Serializable;
-import javax.enterprise.context.RequestScoped;
+import java.lang.annotation.Documented;
+import static java.lang.annotation.ElementType.PARAMETER;
+import java.lang.annotation.Retention;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import java.lang.annotation.Target;
 
 /**
- * The REST bean.
- *
+ * The RestPathParameter annotation.
+ * 
  * @author Manfred Riem (mriem@manorrock.com)
  */
-@RequestScoped
-public class RestBean implements Serializable {
-
+@Documented
+@Target(value = {PARAMETER})
+@Retention(value = RUNTIME)
+public @interface RestPathParameter {
+    
     /**
-     * Execute the index action.
-     *
-     * @return /index.xhtml
+     * Stores the name (a.k.a capturing group).
+     * 
+     * @return the name (a.k.a capturing group).
      */
-    @RestPath("/helloWorld")
-    public String helloWorld() {
-        return "Hello World";
-    }
-
-    /**
-     * Execute the rest parameter path action.
-     *
-     * @param path the path.
-     * @return /index.xhtml
-     */
-    @RestPath("(?<path>.*)")
-    public String helloWorld(@RestPathParameter("path") String path) {
-        return path;
-    }
+    public String value() default "";
 }

@@ -26,6 +26,9 @@
  */
 package com.manorrock.oyena.rest;
 
+import java.lang.annotation.Annotation;
+import javax.faces.context.FacesContext;
+
 /**
  * The REST parameter producer API.
  * 
@@ -36,8 +39,13 @@ public interface RestParameterProducer {
     /**
      * Produce an instance for the given type.
      * 
-     * @param type the type.
+     * @param facesContext the Faces context.
+     * @param restMappingMatch the REST mapping match.
+     * @param parameterType the parameter type.
+     * @param parameterAnnotations the annotations.
      * @return the instance.
      */
-    public Object produce(Class<?> type);
+    public Object produce(FacesContext facesContext, 
+            RestMappingMatch restMappingMatch, Class<?> parameterType, 
+            Annotation[] parameterAnnotations);
 }

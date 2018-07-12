@@ -26,9 +26,14 @@
  */
 package com.manorrock.oyena.rest;
 
+import java.lang.annotation.Annotation;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.spi.CDI;
+import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
 
 /**
  * The default REST parameter producer.
@@ -41,11 +46,47 @@ public class DefaultRestParameterProducer implements RestParameterProducer {
     /**
      * Produce an instance for the given type.
      * 
-     * @param type the type.
+     * @param facesContext the Faces context.
+     * @param restMappingMatch the REST mapping match.
+     * @param parameterType the parameter type.
+     * @param parameterAnnotations the parameter annotations.
      * @return the instance.
      */
     @Override
-    public Object produce(Class<?> type) {
-        return CDI.current().select(type, Any.Literal.INSTANCE).get();
+    public Object produce(FacesContext facesContext, 
+            RestMappingMatch restMappingMatch, Class<?> parameterType, 
+            Annotation[] parameterAnnotations) {
+        Object result;
+        RestPathParameter restPathParameter = getRestPathParameterAnnotation(parameterAnnotations);
+        if (restPathParameter != null) {
+            Pattern pattern = Pattern.compile(restMappingMatch.getRestPath());
+            Matcher matcher = pattern.matcher(restMappingMatch.getPathInfo());
+            if (matcher.matches()) {
+                result = matcher.group(restPathParameter.value());
+            } else {
+                throw new FacesException("Unable to match @RestPathParameter: " + restPathParameter.value());
+            }
+        } else {
+            result = CDI.current().select(parameterType, Any.Literal.INSTANCE).get();
+        }
+        return result;
+    }
+    
+    /**
+     * Get the @RestPathParameter annotation (if present).
+     * 
+     * @return the @RestPathParameter annotation, or null if not present.
+     */
+    private RestPathParameter getRestPathParameterAnnotation(Annotation[] annotations) {
+        RestPathParameter result = null;
+        if (annotations != null && annotations.length > 0) {
+            for (Annotation annotation : annotations) {
+                if (annotation instanceof RestPathParameter) {
+                    result = (RestPathParameter) annotation;
+                    break;
+                }
+            }
+        }
+        return result;
     }
 }

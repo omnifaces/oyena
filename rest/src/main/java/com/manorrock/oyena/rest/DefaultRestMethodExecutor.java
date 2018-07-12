@@ -31,7 +31,6 @@ import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.spi.CDI;
 import javax.faces.FacesException;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -53,7 +52,7 @@ public class DefaultRestMethodExecutor implements RestMethodExecutor {
      * Execute the method.
      *
      * @param facesContext the Faces context.
-     * @param restMappingMatch the action mapping match.
+     * @param restMappingMatch the REST mapping match.
      */
     @Override
     public Object execute(FacesContext facesContext, RestMappingMatch restMappingMatch) {
@@ -65,7 +64,10 @@ public class DefaultRestMethodExecutor implements RestMethodExecutor {
             if (parameters.length > 0) {
                 for (int i = 0; i < parameters.length; i++) {
                     parameters[i] = restParameterProducer.produce(
-                            restMappingMatch.getMethod().getParameterTypes()[i]);
+                            facesContext,
+                            restMappingMatch,
+                            restMappingMatch.getMethod().getParameterTypes()[i],
+                            restMappingMatch.getMethod().getParameterAnnotations()[i]);
                 }
             }
             result = restMappingMatch.getMethod().invoke(instance.get(), parameters);
