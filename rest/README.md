@@ -95,6 +95,17 @@ necessary imports:
       public String helloWorld() {
         return "Hello World";
       }
+
+      /**
+       * Execute the @RestPath with a @RestPathParameter.
+       *
+       * @param path the path.
+       * @return the path matched.
+       */
+      @RestPath("(?<path>.*)")
+      public String helloWorld(@RestPathParameter("path") String path) {
+        return path;
+      }
     }
 
 
@@ -104,6 +115,7 @@ Deploy the web application to the server of your choice.
 
 Assuming the web application is deployed at /myrest on your localhost server
 listening on port 8080 you would browse to http://localhost:8080/myrest/rest/helloWorld
-to try it.
+to try it. Or http://localhost:8080/myrest/rest/this_is_my_path to show it can
+match using @RestPath and @RestPathParameter.
 
 Enjoy!
