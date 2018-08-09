@@ -206,8 +206,8 @@
     <modules>
         <module>action</module>
         <module>cdi</module>
+        <module>html5</module>
         <module>rest</module>
-        <module>renderkit</module>
     </modules>
     <profiles>
         <profile>
