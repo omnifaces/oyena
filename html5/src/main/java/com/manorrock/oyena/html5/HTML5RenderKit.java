@@ -29,11 +29,16 @@ package com.manorrock.oyena.html5;
 import java.io.OutputStream;
 import java.io.Writer;
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.FactoryFinder;
+import static javax.faces.FactoryFinder.RENDER_KIT_FACTORY;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
-import javax.faces.render.RenderKitWrapper;
+import javax.faces.render.RenderKit;
+import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -43,21 +48,23 @@ import javax.inject.Named;
  */
 @ApplicationScoped
 @Named("HTML5")
-public class HTML5RenderKit extends RenderKitWrapper {
+public class HTML5RenderKit extends RenderKit {
+    
+    /**
+     * Stores the Faces context.
+     */
+    @Inject
+    private FacesContext facesContext;
+    
+    /**
+     * Stores the HTML_BASIC_RENDER_KIT render-kit.
+     */
+    private RenderKit wrapped;
 
     /**
      * Constructor.
      */
     public HTML5RenderKit() {
-    }
-    
-    /**
-     * Constructor.
-     * 
-     * @param wrapped the wrapped render-kit.
-     */
-    public HTML5RenderKit(RenderKitWrapper wrapped) {
-        super(wrapped);
     }
     
     /**
@@ -104,7 +111,13 @@ public class HTML5RenderKit extends RenderKitWrapper {
      */
     @Override
     public ResponseWriter createResponseWriter(Writer writer, String contentTypeList, String characterEncoding) {
-        return getWrapped().createResponseWriter(writer, contentTypeList, characterEncoding);
+        ResponseWriter result;
+        if (contentTypeList == null || contentTypeList.contains("text/html")) {
+            result = new HTML5ResponseWriter(writer, contentTypeList, characterEncoding);
+        } else {
+            result = getWrapped().createResponseWriter(writer, contentTypeList, characterEncoding);
+        }
+        return result;
     }
 
     /**
@@ -116,5 +129,18 @@ public class HTML5RenderKit extends RenderKitWrapper {
     @Override
     public ResponseStream createResponseStream(OutputStream outputStream) {
         return getWrapped().createResponseStream(outputStream);
+    }
+
+    /**
+     * Get the wrapped BASIC_HTML render-kit.
+     * 
+     * @return the wrapped BASIC_HTML render-kit.
+     */
+    private RenderKit getWrapped() {
+        if (wrapped == null) {
+            RenderKitFactory factory = (RenderKitFactory) FactoryFinder.getFactory(RENDER_KIT_FACTORY);
+            wrapped = factory.getRenderKit(facesContext, RenderKitFactory.HTML_BASIC_RENDER_KIT);
+        }
+        return wrapped;
     }
 }

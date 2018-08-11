@@ -26,6 +26,7 @@
  */
 package com.manorrock.oyena.cdi;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
@@ -37,6 +38,7 @@ import javax.enterprise.inject.spi.CDI;
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
+import javax.faces.render.RenderKitWrapper;
 import javax.inject.Named;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -52,6 +54,12 @@ public class CdiRenderKitFactory extends RenderKitFactory {
      * Stores the bean manager.
      */
     public BeanManager beanManager;
+    
+    /**
+     * Constructor.
+     */
+    public CdiRenderKitFactory() {
+    }
 
     /**
      * Constructor.

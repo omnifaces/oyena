@@ -15,6 +15,7 @@
     <name>Manorrock Oyena Test Project</name>
     <modules>
         <module>action-test-webapp</module>
+        <module>html5-test-webapp</module>
         <module>rest-test-webapp</module>
     </modules>
 </project>
