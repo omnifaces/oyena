@@ -30,12 +30,9 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
-import javax.faces.render.Renderer;
 
 /**
  * The HTML5 renderer for h:panelGroup.
@@ -43,7 +40,7 @@ import javax.faces.render.Renderer;
  * @author Manfred Riem (mriem@manorrock.com)
  */
 @FacesRenderer(renderKitId = "HTML5", componentFamily = "javax.faces.Panel", rendererType = "javax.faces.Group")
-public class HTML5PanelGroupRenderer extends Renderer {
+public class HTML5PanelGroupRenderer extends HTML5BaseRenderer {
 
     /**
      * Encode the begin.
@@ -57,25 +54,15 @@ public class HTML5PanelGroupRenderer extends Renderer {
         if (component.isRendered()) {
             ResponseWriter responseWriter = context.getResponseWriter();
             Map<String, Object> attributes = component.getAttributes();
-
             String layout = (String) attributes.get("layout");
             if (layout != null && layout.equals("block")) {
                 responseWriter.startElement("div", component);
             } else {
                 responseWriter.startElement("span", component);
             }
-
             encodeId(context, component);
-
-            String style = (String) attributes.get("style");
-            if (style != null) {
-                responseWriter.writeAttribute("style", style, null);
-            }
-
-            String styleClass = (String) attributes.get("styleClass");
-            if (styleClass != null) {
-                responseWriter.writeAttribute("class", styleClass, null);
-            }
+            encodeAttribute(context, component, "styleClass", "class");
+            encodeAttribute(context, component, "style", "style");
         }
     }
 
@@ -115,31 +102,6 @@ public class HTML5PanelGroupRenderer extends Renderer {
             } else {
                 responseWriter.endElement("span");
             }
-        }
-    }
-
-    /**
-     * Encode the id.
-     * 
-     * @param context the Faces context.
-     * @param component the component.
-     * @throws IOException when an I/O error occurs.
-     */
-    private void encodeId(FacesContext context, UIComponent component) throws IOException {
-        boolean renderId = false;
-        String id = component.getId();
-        if (id != null && !id.startsWith(UIViewRoot.UNIQUE_ID_PREFIX)) {
-            renderId = true;
-        }
-        if (!renderId && component instanceof ClientBehaviorHolder) {
-            ClientBehaviorHolder cbh = (ClientBehaviorHolder) component;
-            if (!cbh.getClientBehaviors().isEmpty()) {
-                renderId = true;
-            }
-        }
-        if (renderId) {
-            ResponseWriter responseWriter = context.getResponseWriter();
-            responseWriter.writeAttribute("id", component.getClientId(context), null);
         }
     }
 
