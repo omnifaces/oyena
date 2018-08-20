@@ -248,6 +248,7 @@
         <module>cdi</module>
         <module>html5</module>
         <module>rest</module>
+        <module>quill</module>
     </modules>
     <profiles>
         <profile>
