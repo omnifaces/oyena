@@ -9,7 +9,14 @@
         <artifactId>project</artifactId>
         <version>2.3.5.0-SNAPSHOT</version>
     </parent>
-    <artifactId>quill</artifactId>
+    <artifactId>oyena-quill</artifactId>
     <packaging>jar</packaging>
     <name>Manorrock Oyena Quill component</name>
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>
