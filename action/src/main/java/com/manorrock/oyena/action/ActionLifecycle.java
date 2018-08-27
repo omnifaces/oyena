@@ -95,7 +95,7 @@ public class ActionLifecycle extends Lifecycle {
             actionMethodExecutor.execute(facesContext, match);
         } else {
             try {
-                facesContext.getExternalContext().responseSendError(404, "Unable to match view");
+                facesContext.getExternalContext().responseSendError(404, "Unable to match action");
                 facesContext.responseComplete();
             } catch (IOException ioe) {
                 throw new FacesException(ioe);
