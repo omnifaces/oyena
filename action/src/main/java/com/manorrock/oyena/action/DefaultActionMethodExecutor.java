@@ -44,10 +44,10 @@ import javax.inject.Inject;
 public class DefaultActionMethodExecutor implements ActionMethodExecutor {
 
     /**
-     * Stores the action parameter injector.
+     * Stores the action parameter producer.
      */
     @Inject
-    private ActionParameterProducer actionParameterInjector;
+    private ActionParameterProducer actionParameterProducer;
     
     /**
      * Execute the method.
@@ -64,7 +64,7 @@ public class DefaultActionMethodExecutor implements ActionMethodExecutor {
             Object[] parameters = new Object[actionMappingMatch.getMethod().getParameterCount()];
             if (parameters.length > 0) {
                 for(int i=0; i<parameters.length; i++) {
-                    parameters[i] = actionParameterInjector.produce(
+                    parameters[i] = actionParameterProducer.produce(
                             actionMappingMatch.getMethod().getParameterTypes()[i]);
                 }
             }
