@@ -37,15 +37,15 @@ import javax.faces.context.FacesContext;
 
 /**
  * The default REST parameter producer.
- * 
+ *
  * @author Manfred Riem (mriem@manorrock.com)
  */
 @ApplicationScoped
 public class DefaultRestParameterProducer implements RestParameterProducer {
-
+    
     /**
      * Produce an instance for the given type.
-     * 
+     *
      * @param facesContext the Faces context.
      * @param restMappingMatch the REST mapping match.
      * @param parameterType the parameter type.
@@ -53,11 +53,12 @@ public class DefaultRestParameterProducer implements RestParameterProducer {
      * @return the instance.
      */
     @Override
-    public Object produce(FacesContext facesContext, 
-            RestMappingMatch restMappingMatch, Class<?> parameterType, 
+    public Object produce(FacesContext facesContext,
+            RestMappingMatch restMappingMatch, Class<?> parameterType,
             Annotation[] parameterAnnotations) {
         Object result;
         RestPathParameter restPathParameter = getRestPathParameterAnnotation(parameterAnnotations);
+        RestQueryParameter restQueryParameter = getRestQueryParameterAnnotation(parameterAnnotations);
         if (restPathParameter != null) {
             Pattern pattern = Pattern.compile(restMappingMatch.getRestPath());
             Matcher matcher = pattern.matcher(restMappingMatch.getPathInfo());
@@ -66,15 +67,17 @@ public class DefaultRestParameterProducer implements RestParameterProducer {
             } else {
                 throw new FacesException("Unable to match @RestPathParameter: " + restPathParameter.value());
             }
+        } else if (restQueryParameter != null) {
+            result = facesContext.getExternalContext().getRequestParameterMap().get(restQueryParameter.value());
         } else {
             result = CDI.current().select(parameterType, Any.Literal.INSTANCE).get();
         }
         return result;
     }
-    
+
     /**
      * Get the @RestPathParameter annotation (if present).
-     * 
+     *
      * @return the @RestPathParameter annotation, or null if not present.
      */
     private RestPathParameter getRestPathParameterAnnotation(Annotation[] annotations) {
@@ -83,6 +86,24 @@ public class DefaultRestParameterProducer implements RestParameterProducer {
             for (Annotation annotation : annotations) {
                 if (annotation instanceof RestPathParameter) {
                     result = (RestPathParameter) annotation;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Get the @RestQueryParameter annotation (if present).
+     *
+     * @return the @RestQueryParameter annotation, or null if not present.
+     */
+    private RestQueryParameter getRestQueryParameterAnnotation(Annotation[] annotations) {
+        RestQueryParameter result = null;
+        if (annotations != null && annotations.length > 0) {
+            for (Annotation annotation : annotations) {
+                if (annotation instanceof RestQueryParameter) {
+                    result = (RestQueryParameter) annotation;
                     break;
                 }
             }
