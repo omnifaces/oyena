@@ -249,6 +249,7 @@
         <module>html5</module>
         <module>quill</module>
         <module>rest</module>
+        <module>borderpane</module>
     </modules>
     <profiles>
         <profile>
