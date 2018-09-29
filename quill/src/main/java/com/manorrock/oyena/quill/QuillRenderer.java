@@ -41,6 +41,7 @@ import javax.faces.render.Renderer;
 @FacesRenderer(
         componentFamily = "com.manorrock.oyena.quill",
         rendererType = "com.manorrock.oyena.quill.QuillRenderer")
+@Deprecated
 public class QuillRenderer extends Renderer {
     
     /**

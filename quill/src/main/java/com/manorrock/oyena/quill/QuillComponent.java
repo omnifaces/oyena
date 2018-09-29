@@ -39,6 +39,7 @@ import javax.faces.component.UIInput;
         namespace = "http://www.manorrock.com/oyena/quill",
         tagName = "quill",
         value = "com.manorrock.oyena.quill.QuillComponent")
+@Deprecated
 public class QuillComponent extends UIInput {
 
     /**

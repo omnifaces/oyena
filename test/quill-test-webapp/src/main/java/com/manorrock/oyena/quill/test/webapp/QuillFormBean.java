@@ -36,6 +36,7 @@ import javax.inject.Named;
  */
 @Named
 @RequestScoped
+@Deprecated
 public class QuillFormBean {
     
     /**
