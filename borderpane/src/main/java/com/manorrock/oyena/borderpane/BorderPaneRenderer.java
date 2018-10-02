@@ -41,6 +41,7 @@ import javax.faces.render.Renderer;
 @FacesRenderer(
         componentFamily = "com.manorrock.oyena.borderpane",
         rendererType = "com.manorrock.oyena.borderpane.BorderPaneRenderer")
+@Deprecated
 public class BorderPaneRenderer extends Renderer {
 
     /**

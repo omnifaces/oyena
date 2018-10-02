@@ -39,6 +39,7 @@ import javax.faces.component.UIPanel;
         namespace = "http://www.manorrock.com/oyena/borderPane",
         tagName = "borderPane",
         value = "com.manorrock.oyena.borderpane.BorderPaneComponent")
+@Deprecated
 public class BorderPaneComponent extends UIPanel {
 
     /**
