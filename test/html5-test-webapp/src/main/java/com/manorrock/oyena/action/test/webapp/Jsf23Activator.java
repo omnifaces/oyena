@@ -36,6 +36,7 @@ import javax.faces.annotation.FacesConfig;
  */
 @ApplicationScoped
 @FacesConfig(version = FacesConfig.Version.JSF_2_3)
+@Deprecated
 public class Jsf23Activator {
     /* 
      * FIXME - Note this class should not be necessary. 

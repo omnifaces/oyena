@@ -40,6 +40,7 @@ import javax.faces.render.FacesRenderer;
  * @author Manfred Riem (mriem@manorrock.com)
  */
 @FacesRenderer(renderKitId = "HTML5", componentFamily = "javax.faces.Panel", rendererType = "javax.faces.Grid")
+@Deprecated
 public class HTML5PanelGridRenderer extends HTML5BaseRenderer {
 
     /**

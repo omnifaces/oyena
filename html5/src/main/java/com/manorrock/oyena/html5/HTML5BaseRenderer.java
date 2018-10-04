@@ -40,6 +40,7 @@ import javax.faces.render.Renderer;
  *
  * @author Manfred Riem (mriem@manorrock.com)
  */
+@Deprecated
 public abstract class HTML5BaseRenderer extends Renderer {
 
     /**

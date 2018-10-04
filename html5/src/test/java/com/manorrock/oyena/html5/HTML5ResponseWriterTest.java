@@ -38,6 +38,7 @@ import org.junit.Test;
  *
  * @author Manfred Riem (mriem@manorrock.com)
  */
+@Deprecated
 public class HTML5ResponseWriterTest {
 
     /**

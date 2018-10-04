@@ -27,7 +27,6 @@
 package com.manorrock.oyena.html5;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -40,6 +39,7 @@ import javax.faces.render.FacesRenderer;
  * @author Manfred Riem (mriem@manorrock.com)
  */
 @FacesRenderer(renderKitId = "HTML5", componentFamily = "javax.faces.Output", rendererType = "javax.faces.Text")
+@Deprecated
 public class HTML5OutputTextRenderer extends HTML5BaseRenderer {
 
     /**

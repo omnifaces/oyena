@@ -37,6 +37,7 @@ import javax.faces.context.ResponseWriter;
  *
  * @author Manfred Riem (mriem@manorrock.com)
  */
+@Deprecated
 public class HTML5ResponseWriter extends ResponseWriter {
 
     /**

@@ -48,6 +48,7 @@ import javax.inject.Named;
  */
 @ApplicationScoped
 @Named("HTML5")
+@Deprecated
 public class HTML5RenderKit extends RenderKit {
     
     /**

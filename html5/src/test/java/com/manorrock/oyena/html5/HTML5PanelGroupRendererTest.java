@@ -43,6 +43,7 @@ import static org.powermock.api.easymock.PowerMock.verify;
  * 
  * @author Manfred Riem (mriem@manorrock.com)
  */
+@Deprecated
 public class HTML5PanelGroupRendererTest {
     
     /**
