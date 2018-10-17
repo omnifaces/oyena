@@ -248,7 +248,6 @@
         <module>borderpane</module>
         <module>cdi</module>
         <module>hbox</module>
-        <module>html5</module>
         <module>rest</module>
     </modules>
     <profiles>

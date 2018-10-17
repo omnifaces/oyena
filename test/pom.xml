@@ -13,7 +13,6 @@
     <modules>
         <module>action-test-webapp</module>
         <module>borderpane-test-webapp</module>
-        <module>html5-test-webapp</module>
         <module>rest-test-webapp</module>
     </modules>
 </project>
