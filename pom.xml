@@ -246,7 +246,6 @@
     <modules>
         <module>action</module>
         <module>cdi</module>
-        <module>hbox</module>
         <module>rest</module>
     </modules>
     <profiles>
