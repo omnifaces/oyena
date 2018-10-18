@@ -245,7 +245,6 @@
     </developers>
     <modules>
         <module>action</module>
-        <module>borderpane</module>
         <module>cdi</module>
         <module>hbox</module>
         <module>rest</module>

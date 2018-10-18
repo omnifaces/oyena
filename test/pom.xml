@@ -12,7 +12,6 @@
     <name>Manorrock Oyena Test Project</name>
     <modules>
         <module>action-test-webapp</module>
-        <module>borderpane-test-webapp</module>
         <module>rest-test-webapp</module>
     </modules>
 </project>
