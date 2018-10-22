@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Default;
 import javax.enterprise.inject.spi.AnnotatedType;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
@@ -37,14 +38,13 @@ import javax.enterprise.inject.spi.CDI;
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * The REST lifecycle.
+ * The REST life-cycle.
  *
  * @author Manfred Riem (mriem@manorrock.com)
  */
@@ -110,7 +110,7 @@ public class RestLifecycle extends Lifecycle {
      * Get the phase listeners.
      *
      * <p>
-     * As phase listeners are ignored by the REST lifecycle this will always
+     * As phase listeners are ignored by the REST life-cycle this will always
      * return a zero length array.
      * </p>
      *
@@ -140,6 +140,12 @@ public class RestLifecycle extends Lifecycle {
                 break;
             }
         }
+        if (result == null) {
+            beans = beanManager.getBeans(type.getBaseType(), new Default.Literal());
+            iterator = beans.iterator();
+            Bean<?> bean = iterator.next();
+            result = (RestResponseWriter) CDI.current().select(bean.getBeanClass()).get();
+        }
         return result;
     }
 
@@ -147,7 +153,7 @@ public class RestLifecycle extends Lifecycle {
      * Remove a phase listener.
      *
      * <p>
-     * This is ignored by the REST lifecycle.
+     * This is ignored by the REST life-cycle.
      * </p>
      *
      * @param phaseListener the phase listener.
@@ -157,7 +163,7 @@ public class RestLifecycle extends Lifecycle {
     }
 
     /**
-     * Perform the render part of the REST lifecycle.
+     * Perform the render part of the REST life-cycle.
      *
      * @param facesContext the Faces context.
      * @throws FacesException when a serious error occurs.
@@ -171,14 +177,7 @@ public class RestLifecycle extends Lifecycle {
                 externalContext.setResponseContentType("application/json");
                 responseContentType = "application/json";
             }
-            switch (responseContentType) {
-                case "application/json":
-                case "text/plain":
-                    getResponseWriter(responseContentType).writeResponse(facesContext);
-                    break;
-                default:
-                    throw new FacesException("Not implemented yet!");
-            }
+            getResponseWriter(responseContentType).writeResponse(facesContext);
         }
     }
 }

@@ -1,8 +1,2 @@
-/nb-configuration.xml
-/target/
-*/faces-config.NavData
-*/nb-configuration.xml
-*/target/
-*/*/nb-configuration.xml
-*/*/target/
-/html5/nbproject/
+nb-configuration.xml
+target
