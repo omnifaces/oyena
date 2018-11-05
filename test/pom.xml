@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
     <name>Manorrock Oyena Test Project</name>
     <modules>
-        <module>action-test-webapp</module>
+        <module>oyena-action-test</module>
         <module>rest-test-webapp</module>
     </modules>
 </project>
