@@ -16,7 +16,7 @@ for the release you are using in the links below.
 
 ## Documentation for older releases
 
-1. [Version 2.3.4.0](https://github.com/manorrock/oyena/tree/v2.3.5.0)
+1. [Version 2.3.5.0](https://github.com/manorrock/oyena/tree/v2.3.5.0)
 2. [Version 2.3.4.0](https://github.com/manorrock/oyena/tree/v2.3.4.0)
 3. [Version 2.3.3.0](https://github.com/manorrock/oyena/tree/v2.3.3.0), adds REST add-on
 4. [Version 2.3.2.0](https://github.com/manorrock/oyena/tree/v2.3.2.0), adds CDI add-on
