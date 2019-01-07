@@ -16,17 +16,18 @@ for the release you are using in the links below.
 
 ## Documentation for older releases
 
-1. [Version 2.3.8.0](https://github.com/manorrock/oyena/tree/v2.3.8.0)
-2. [Version 2.3.7.0](https://github.com/manorrock/oyena/tree/v2.3.7.0)
-3. [Version 2.3.6.0](https://github.com/manorrock/oyena/tree/v2.3.6.0)
-4. [Version 2.3.5.0](https://github.com/manorrock/oyena/tree/v2.3.5.0)
-5. [Version 2.3.4.0](https://github.com/manorrock/oyena/tree/v2.3.4.0)
-6. [Version 2.3.3.0](https://github.com/manorrock/oyena/tree/v2.3.3.0), adds REST add-on
-7. [Version 2.3.2.0](https://github.com/manorrock/oyena/tree/v2.3.2.0), adds CDI add-on
-8. [Version 2.3.1.0](https://github.com/manorrock/oyena/tree/v2.3.1.0)
-9. [Version 2.3.0.2](https://github.com/manorrock/oyena/tree/v2.3.0.2), first release on Maven central
-10. [Version 2.3.0.1](https://github.com/manorrock/oyena/tree/v2.3.0.1)
-11. [Version 2.3.0.0](https://github.com/manorrock/oyena/tree/v2.3.0.0), first release
+1. [Version 2.3.9.0](https://github.com/manorrock/oyena/tree/v2.3.9.0)
+2. [Version 2.3.8.0](https://github.com/manorrock/oyena/tree/v2.3.8.0)
+3. [Version 2.3.7.0](https://github.com/manorrock/oyena/tree/v2.3.7.0)
+4. [Version 2.3.6.0](https://github.com/manorrock/oyena/tree/v2.3.6.0)
+5. [Version 2.3.5.0](https://github.com/manorrock/oyena/tree/v2.3.5.0)
+6. [Version 2.3.4.0](https://github.com/manorrock/oyena/tree/v2.3.4.0)
+7. [Version 2.3.3.0](https://github.com/manorrock/oyena/tree/v2.3.3.0), adds REST add-on
+8. [Version 2.3.2.0](https://github.com/manorrock/oyena/tree/v2.3.2.0), adds CDI add-on
+9. [Version 2.3.1.0](https://github.com/manorrock/oyena/tree/v2.3.1.0)
+10. [Version 2.3.0.2](https://github.com/manorrock/oyena/tree/v2.3.0.2), first release on Maven central
+11. [Version 2.3.0.1](https://github.com/manorrock/oyena/tree/v2.3.0.1)
+12. [Version 2.3.0.0](https://github.com/manorrock/oyena/tree/v2.3.0.0), first release
 
 ## How do I contribute?
 
