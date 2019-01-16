@@ -26,203 +26,73 @@
  */
 package com.manorrock.oyena.template;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Collection;
-import java.util.Locale;
-import javax.servlet.ServletOutputStream;
+import com.manorrock.piranha.DefaultWebApplicationResponse;
+import java.util.List;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * The HTTP servlet response implementation for templating.
  * 
  * @author Manfred Riem (mriem@manorrock.com)
  */
-public class TemplateHttpServletResponse implements HttpServletResponse {
+public class TemplateHttpServletResponse extends DefaultWebApplicationResponse {
 
-    @Override
-    public void addCookie(Cookie cookie) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    /**
+     * Constructor.
+     */
+    public TemplateHttpServletResponse() {
+        super();
+        this.outputStream = new TemplateServletOutputStream();
     }
 
-    @Override
-    public boolean containsHeader(String string) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    /**
+     * Get the cookies.
+     *
+     * @return the cookies.
+     */
+    public List<Cookie> getCookies() {
+        return cookies;
     }
 
-    @Override
-    public String encodeURL(String string) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public String encodeRedirectURL(String string) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public String encodeUrl(String string) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public String encodeRedirectUrl(String string) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void sendError(int i, String string) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void sendError(int i) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void sendRedirect(String string) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setDateHeader(String string, long l) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void addDateHeader(String string, long l) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setHeader(String string, String string1) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void addHeader(String string, String string1) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setIntHeader(String string, int i) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void addIntHeader(String string, int i) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setStatus(int i) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setStatus(int i, String string) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public int getStatus() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public String getHeader(String string) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Collection<String> getHeaders(String string) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Collection<String> getHeaderNames() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public String getCharacterEncoding() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public String getContentType() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public ServletOutputStream getOutputStream() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public PrintWriter getWriter() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setCharacterEncoding(String string) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setContentLength(int i) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setContentLengthLong(long l) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setContentType(String string) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setBufferSize(int i) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+    /**
+     * Get the buffer size.
+     *
+     * @return the buffer size.
+     */
     @Override
     public int getBufferSize() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return 0;
     }
 
-    @Override
-    public void flushBuffer() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    /**
+     * Get the bytes in the buffer.
+     *
+     * @return the bytes in the buffer.
+     */
+    public byte[] getResponseBody() {
+        if (this.gotWriter) {
+            this.writer.flush();
+        }
+        TemplateServletOutputStream output = (TemplateServletOutputStream) this.outputStream;
+        return output.getBytes();
     }
 
+    /**
+     * Reset the buffer.
+     */
     @Override
     public void resetBuffer() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        verifyNotCommitted("resetBuffer");
+        TemplateServletOutputStream output = (TemplateServletOutputStream) this.outputStream;
+        output.reset();
     }
 
+    /**
+     * Set the buffer size.
+     *
+     * @param size the buffer size.
+     */
     @Override
-    public boolean isCommitted() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void reset() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void setLocale(Locale locale) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Locale getLocale() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setBufferSize(int size) {
     }
 }
