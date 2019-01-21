@@ -26,9 +26,6 @@
  */
 package com.manorrock.oyena.template;
 
-import com.manorrock.piranha.DefaultDirectoryResource;
-import com.manorrock.piranha.DefaultWebApplication;
-import java.io.File;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -47,9 +44,7 @@ public class TemplateTest {
      */
     @Test
     public void testTemplate1() throws Exception {
-        DefaultWebApplication webApp = new DefaultWebApplication();
-        webApp.addResource(new DefaultDirectoryResource(new File("src/main/template1")));
-        webApp.addInitializer("com.manorrock.piranha.mojarra.MojarraInitializer");
+        TemplateWebApplication webApp = new TemplateWebApplication("src/main/template1");
         webApp.initialize();
         webApp.start();
 
@@ -76,9 +71,7 @@ public class TemplateTest {
      */
     @Test
     public void testTemplate2() throws Exception {
-        DefaultWebApplication webApp = new DefaultWebApplication();
-        webApp.addResource(new DefaultDirectoryResource(new File("src/main/template2")));
-        webApp.addInitializer("com.manorrock.piranha.mojarra.MojarraInitializer");
+        TemplateWebApplication webApp = new TemplateWebApplication("src/main/template2");
         webApp.initialize();
         webApp.start();
 
