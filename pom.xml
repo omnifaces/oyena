@@ -253,7 +253,6 @@
         <module>cdi</module>
         <module>rest</module>
         <module>template</module>
-        <module>oyena-ajax</module>
     </modules>
     <profiles>
         <profile>
