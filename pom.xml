@@ -252,6 +252,7 @@
         <module>action</module>
         <module>cdi</module>
         <module>rest</module>
+        <module>browser</module>
     </modules>
     <profiles>
         <profile>
