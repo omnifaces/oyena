@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020 Manorrock.com. All Rights Reserved.
+ * Copyright (c) 2002-2020 OmniFaces. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
@@ -26,9 +26,9 @@
  */
 package com.manorrock.oyena.rest.test;
 
-import com.manorrock.oyena.rest.RestPath;
-import com.manorrock.oyena.rest.RestPathParameter;
-import com.manorrock.oyena.rest.RestQueryParameter;
+import org.omnifaces.oyena.rest.RestPath;
+import org.omnifaces.oyena.rest.RestPathParameter;
+import org.omnifaces.oyena.rest.RestQueryParameter;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 

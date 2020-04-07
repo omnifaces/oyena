@@ -1,7 +1,7 @@
 
-# Manorrock Oyena CDI
+# OmniFaces Oyena CDI
 
-The Manorrock Oyena CDI module delivers you CDI-based implementations that can
+The OmniFaces Oyena CDI module delivers you CDI-based implementations that can
 be used to extend the behavior of Eclipse Mojarra.
 
 ## Prerequisites
@@ -21,7 +21,7 @@ To use it in your web application you will need to do the following:
 Add the following Maven dependency:
 
     <dependency>
-      <groupId>com.manorrock.oyena</groupId>
+      <groupId>org.omnifaces.oyena</groupId>
       <artifactId>oyena-cdi</artifactId>
       <version>x.y.z</version>
     </dependency>
@@ -38,7 +38,7 @@ In the example below we use the CDI-based LifecycleFactory:
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
                                   http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
       <factory>
-        <lifecycle-factory>com.manorrock.oyena.cdi.CdiLifecycleFactory</lifecycle-factory>
+        <lifecycle-factory>org.omnifaces.oyena.cdi.CdiLifecycleFactory</lifecycle-factory>
       </factory>
     </faces-config>
 

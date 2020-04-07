@@ -1,7 +1,7 @@
 
-# Manorrock Oyena
+# OmniFaces Oyena
 
-Manorrock Oyena delivers you with several add-on modules that you can use with
+OmniFaces Oyena delivers you with several add-on modules that you can use with
 Eclipse Mojarra. 
 
 See the list below for the add-on modules that are available.
@@ -15,6 +15,8 @@ yet available as it is under active development. Please see the documentation
 for the release you are using in the links below.
 
 ## Documentation for older releases
+
+### Legacy Manorrock.com versions
 
 1. [Version 20.2.0](https://github.com/manorrock/oyena/tree/v20.2.0)
 1. [Version 2.3.10.0](https://github.com/manorrock/oyena/tree/v2.3.10.0)

@@ -1,7 +1,7 @@
 
-# Manorrock Oyena REST
+# OmniFaces Oyena REST
 
-The Manorrock Oyena REST module delivers you with an REST framework that you
+The OmniFaces Oyena REST module delivers you with an REST framework that you
 can use with Eclipse Mojarra.
 
 ## Prerequisites
@@ -22,7 +22,7 @@ To use it in your web application you will need to do the following:
 Add the following Maven dependency:
 
     <dependency>
-      <groupId>com.manorrock.oyena</groupId>
+      <groupId>org.omnifaces.oyena</groupId>
       <artifactId>oyena-rest</artifactId>
       <version>x.y.z</version>
     </dependency>
@@ -39,7 +39,7 @@ And you need to have a faces-config.xml in the WEB-INF directory with at minimum
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
                                   http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
       <factory>
-        <lifecycle-factory>com.manorrock.oyena.cdi.CdiLifecycleFactory</lifecycle-factory>
+        <lifecycle-factory>org.omnifaces.oyena.cdi.CdiLifecycleFactory</lifecycle-factory>
       </factory>
     </faces-config>
 
