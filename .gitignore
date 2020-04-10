@@ -1,3 +1,5 @@
 nb-configuration.xml
 target
 /template/nbproject/
+/test/browser/src/main/webapp/META-INF/
+/browser/nbproject/
