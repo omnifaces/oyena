@@ -64,6 +64,13 @@ public class CdiLifecycleFactory extends LifecycleFactory {
             beanManager = (BeanManager) initialContext.lookup("java:comp/BeanManager");
         } catch (NamingException ne) {
         }
+        if (beanManager == null) {
+            try {
+                InitialContext initialContext = new InitialContext();
+                beanManager = (BeanManager) initialContext.lookup("java:comp/env/BeanManager");
+            } catch (NamingException ne) {
+            }
+        }
     }
 
     /**
