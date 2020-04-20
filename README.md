@@ -16,8 +16,11 @@ for the release you are using in the links below.
 
 ## Documentation for older releases
 
+1. [Version 20.4.0](https://github.com/omnifaces/oyena/tree/v20.4.0)
+
 ### Legacy Manorrock.com versions
 
+1. [Version 20.3.0](https://github.com/manorrock/oyena/tree/v20.3.0)
 1. [Version 20.2.0](https://github.com/manorrock/oyena/tree/v20.2.0)
 1. [Version 2.3.10.0](https://github.com/manorrock/oyena/tree/v2.3.10.0)
 1. [Version 2.3.9.0](https://github.com/manorrock/oyena/tree/v2.3.9.0)
