@@ -28,6 +28,7 @@ package org.omnifaces.oyena.action;
 
 import java.util.Iterator;
 import java.util.Set;
+import java.util.regex.Pattern;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.spi.AnnotatedMethod;
@@ -92,6 +93,16 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
                         result.setMethod(method.getJavaMember());
                         result.setActionMapping(mapping);
                         result.setMappingType(ActionMappingType.EXTENSION);
+                        break;
+                    }
+                } else if (mapping.startsWith("regex:")) {
+                    mapping = mapping.substring("regex:".length());
+                    if (Pattern.matches(mapping, pathInfo)) {
+                        result = new ActionMappingMatch();
+                        result.setBean(bean);
+                        result.setMethod(method.getJavaMember());
+                        result.setActionMapping(mapping);
+                        result.setMappingType(ActionMappingType.REGEX);
                         break;
                     }
                 }

@@ -58,7 +58,6 @@ public class ActionBean implements Serializable {
      */
     @ActionMapping("/page2") 
     public String executePage2(HttpServletRequest request) {
-        System.out.println(request);
         return "/index.xhtml";
     }
     
@@ -71,8 +70,18 @@ public class ActionBean implements Serializable {
      */
     @ActionMapping("/page3") 
     public String executePage3(HttpServletRequest request, FacesContext facesContext) {
-        System.out.println(request);
-        System.out.println(facesContext);
+        return "/index.xhtml";
+    }
+    
+    /**
+     * Execute the page 4 action.
+     * 
+     * @param request the HTTP servlet request.
+     * @param facesContext the Faces context.
+     * @return /index.xhtml
+     */
+    @ActionMapping("regex:/page[A-Z]")
+    public String executePageAthroughZ(HttpServletRequest request, FacesContext facesContext) {
         return "/index.xhtml";
     }
 }

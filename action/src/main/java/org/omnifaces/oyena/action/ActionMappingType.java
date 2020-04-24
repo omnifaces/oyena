@@ -41,5 +41,9 @@ public enum ActionMappingType {
     /*
      * An extension match.
      */
-    EXTENSION
+    EXTENSION,
+    /*
+     * A regular expression match.
+    */
+    REGEX
 }
