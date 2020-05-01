@@ -29,11 +29,9 @@ package org.omnifaces.oyena.action;
 import java.io.IOException;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.FacesException;
-import javax.faces.FactoryFinder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
-import javax.faces.lifecycle.LifecycleFactory;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -57,11 +55,12 @@ public class ActionLifecycle extends Lifecycle {
      */
     @Inject
     private ActionMethodExecutor actionMethodExecutor;
-
+    
     /**
-     * Stores the default lifecycle.
+     * Stores the action response handler.
      */
-    private Lifecycle defaultLifecycle;
+    @Inject
+    private ActionResponseHandler actionResponseHandler;
 
     /**
      * Constructor.
@@ -104,26 +103,6 @@ public class ActionLifecycle extends Lifecycle {
     }
 
     /**
-     * Get the default lifecycle.
-     *
-     * <p>
-     * FIXME - This method lazily gets the default lifecycle as FactoryFinder is
-     * not properly re-entrant. We should be able to initialize the
-     * defaultLifecycle variable in the constructor of this class. 
-     * See https://github.com/eclipse-ee4j/mojarra/issues/4379
-     * </p>
-     *
-     * @return the default lifecycle.
-     */
-    private synchronized Lifecycle getDefaultLifecycle() {
-        if (defaultLifecycle == null) {
-            LifecycleFactory lifecycleFactory = (LifecycleFactory) FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-            defaultLifecycle = lifecycleFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-        }
-        return defaultLifecycle;
-    }
-
-    /**
      * Get the phase listeners.
      *
      * <p>
@@ -160,7 +139,7 @@ public class ActionLifecycle extends Lifecycle {
     @Override
     public void render(FacesContext facesContext) throws FacesException {
         if (!facesContext.getResponseComplete()) {
-            getDefaultLifecycle().render(facesContext);
+            actionResponseHandler.respond(facesContext);
         }
     }
 }
