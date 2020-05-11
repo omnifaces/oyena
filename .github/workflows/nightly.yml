@@ -1,5 +1,7 @@
-name: maven
-on: [push]
+name: nightly
+on:
+  schedule:
+  - cron: "0 0 * * *"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,4 +12,4 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn -B package
+      run: mvn -B install
