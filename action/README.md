@@ -125,3 +125,19 @@ listening on port 8080 you would browse to http://localhost:8080/myaction/index
 to try it.
 
 Enjoy!
+
+## More information
+
+### Regular Expression mapping
+
+If you want to use regular expression mapping for your action see the example
+below on how to do that:
+
+    @ActionMapping("regex:/page[A-Z]")
+    public String executePageAthroughZ() {
+        return "/pageAthroughZ.xhtml";
+    }
+
+The example above matches against the regular expression '/page[A-Z]'. Note the
+format of the regular expression is the same format as the `Pattern` class in the
+`java.util.regex` package.
