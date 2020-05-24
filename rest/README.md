@@ -119,3 +119,19 @@ to try it. Or http://localhost:8080/myrest/rest/this_is_my_path to show it can
 match using @RestPath and @RestPathParameter.
 
 Enjoy!
+
+## More information
+
+### Accessing query parameters
+
+If you want to be able to access query parameters the RestQueryParameter
+annotation can be used to achieve that.
+
+```java
+    @RestPath("/query")
+    public String query(@RestQueryParameter("param") String param) {
+        return param;
+    }
+```
+
+The example above sets the `param` method parameter to the query parameter `param`.
