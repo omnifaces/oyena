@@ -21,11 +21,13 @@ To use it in your web application you will need to do the following:
 
 Add the following Maven dependency:
 
+```xml
     <dependency>
       <groupId>org.omnifaces.oyena</groupId>
       <artifactId>oyena-rest</artifactId>
       <version>x.y.z</version>
     </dependency>
+```
 
 Where you need to replace x.y.z with the version you want to use.
 
@@ -33,6 +35,7 @@ Where you need to replace x.y.z with the version you want to use.
 
 And you need to have a faces-config.xml in the WEB-INF directory with at minimum the following:
 
+```xml
     <faces-config version="2.3"
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -42,6 +45,7 @@ And you need to have a faces-config.xml in the WEB-INF directory with at minimum
         <lifecycle-factory>org.omnifaces.oyena.cdi.CdiLifecycleFactory</lifecycle-factory>
       </factory>
     </faces-config>
+```
 
 ### Add a beans.xml
 
@@ -49,6 +53,7 @@ As the framework requires CDI you need to activate CDI.
 
 Add an placeholder beans.xml to the WEB-INF directory and it will take care of that:
 
+```xml
     <beans
         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -56,11 +61,13 @@ Add an placeholder beans.xml to the WEB-INF directory and it will take care of t
                             http://xmlns.jcp.org/xml/ns/javaee/beans_2_0.xsd"
         bean-discovery-mode="all">
     </beans>
+```
 
 ### Add a Servlet mapping for the Oyena REST Servlet
 
 Add a servlet mapping to the web.xml file:
 
+```xml
     <web-app xmlns="http://java.sun.com/xml/ns/javaee"
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
@@ -71,6 +78,7 @@ Add a servlet mapping to the web.xml file:
         <url-pattern>/rest/*</url-pattern>
       </servlet-mapping>
     </web-app>
+```
 
 ## Using it
 
@@ -83,6 +91,7 @@ To actually use it you will need to create 1 CDI bean.
 Create a CDI bean with the following content and use your IDE to resolve the
 necessary imports:
 
+```java
     @RequestScoped
     public class RestBean implements Serializable {
  
@@ -95,19 +104,8 @@ necessary imports:
       public String helloWorld() {
         return "Hello World";
       }
-
-      /**
-       * Execute the @RestPath with a @RestPathParameter.
-       *
-       * @param path the path.
-       * @return the path matched.
-       */
-      @RestPath("(?<path>.*)")
-      public String helloWorld(@RestPathParameter("path") String path) {
-        return path;
-      }
     }
-
+```
 
 ## Try it
 
@@ -135,3 +133,19 @@ annotation can be used to achieve that.
 ```
 
 The example above sets the `param` method parameter to the query parameter `param`.
+
+### Regular expression mapping
+
+If you want to use regular expression mapping the example below shows you how to
+do so.
+
+```java
+    @RestPath("(?<path>.*)")
+    public String helloWorld(@RestPathParameter("path") String path) {
+        return path;
+    }
+```
+
+The example above uses a Java Regex pattern to create a regular expression mapping
+and the RestPathParameter annotation is then used to funnel the `path` Regex 
+capture group to the `path` method parameter.
