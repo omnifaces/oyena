@@ -27,14 +27,8 @@
 package org.omnifaces.oyena.rest;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.spi.AnnotatedType;
-import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
-import javax.enterprise.inject.spi.CDI;
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -69,6 +63,12 @@ public class RestLifecycle extends Lifecycle {
      */
     @Inject
     private RestMethodExecutor restMethodExecutor;
+    
+    /**
+     * Stores the REST response matcher.
+     */
+    @Inject
+    private RestResponseMatcher restResponseMatcher;
 
     /**
      * Add a phase listener.
@@ -122,34 +122,6 @@ public class RestLifecycle extends Lifecycle {
     }
 
     /**
-     * Get the response writer for the response content type.
-     *
-     * @param responseContentType the response content type.
-     * @return the response writer.
-     */
-    public RestResponseWriter getResponseWriter(String responseContentType) {
-        RestResponseWriter result = null;
-        AnnotatedType<RestResponseWriter> type = beanManager.createAnnotatedType(RestResponseWriter.class);
-        Set<Bean<?>> beans = beanManager.getBeans(type.getBaseType());
-        Iterator<Bean<?>> iterator = beans.iterator();
-        while (iterator.hasNext()) {
-            Bean<?> bean = iterator.next();
-            RestResponseWriterContentType contentType = bean.getBeanClass().getAnnotation(RestResponseWriterContentType.class);
-            if (contentType != null && contentType.value().equals(responseContentType)) {
-                result = (RestResponseWriter) CDI.current().select(bean.getBeanClass()).get();
-                break;
-            }
-        }
-        if (result == null) {
-            beans = beanManager.getBeans(type.getBaseType(), new Default.Literal());
-            iterator = beans.iterator();
-            Bean<?> bean = iterator.next();
-            result = (RestResponseWriter) CDI.current().select(bean.getBeanClass()).get();
-        }
-        return result;
-    }
-
-    /**
      * Remove a phase listener.
      *
      * <p>
@@ -177,7 +149,7 @@ public class RestLifecycle extends Lifecycle {
                 externalContext.setResponseContentType("application/json");
                 responseContentType = "application/json";
             }
-            getResponseWriter(responseContentType).writeResponse(facesContext);
+            restResponseMatcher.getResponseWriter(responseContentType).writeResponse(facesContext);
         }
     }
 }
