@@ -1,14 +1,14 @@
 
 # OmniFaces Oyena
 
-OmniFaces Oyena delivers you with several add-on modules that you can use with
-Eclipse Mojarra. 
+OmniFaces Oyena delivers you with several modules that you can use with to
+write your applications.
 
-See the list below for the add-on modules that are available.
+See the list below for the modules that are available.
 
-1. [Action framework add-on](action/README.md)
-2. [CDI add-on](cdi/README.md)
-2. [REST add-on](rest/README.md)
+1. [Action framework](action/README.md)
+2. [CDI integration](cdi/README.md)
+2. [REST framework](rest/README.md)
 
 ## How do I contribute?
 
