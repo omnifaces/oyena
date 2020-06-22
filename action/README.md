@@ -37,8 +37,7 @@ And you need to have a faces-config.xml in the WEB-INF directory with at minimum
 
 ```xml
     <faces-config version="2.3"
-              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
                                   http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
       <factory>
@@ -55,8 +54,7 @@ Add an placeholder beans.xml to the WEB-INF directory and it will take care of t
 
 ```xml
     <beans
-        xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
                             http://xmlns.jcp.org/xml/ns/javaee/beans_2_0.xsd"
         bean-discovery-mode="all">
@@ -68,8 +66,7 @@ Add an placeholder beans.xml to the WEB-INF directory and it will take care of t
 Add a servlet mapping to the web.xml file:
 
 ```xml
-    <web-app xmlns="http://java.sun.com/xml/ns/javaee"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                              http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	 version="4.0">
@@ -114,8 +111,7 @@ Create the /index.xhtml Facelet page in the root of your web application with th
 following content:
 
 ```xml
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <!DOCTYPE html>
 
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html">
       <h:head>
