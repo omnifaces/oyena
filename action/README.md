@@ -21,11 +21,13 @@ To use it in your web application you will need to do the following:
 
 Add the following Maven dependency:
 
+```xml
     <dependency>
       <groupId>org.omnifaces.oyena</groupId>
       <artifactId>oyena-action</artifactId>
       <version>x.y.z</version>
     </dependency>
+```
 
 Where you need to replace x.y.z with the version you want to use.
 
@@ -33,6 +35,7 @@ Where you need to replace x.y.z with the version you want to use.
 
 And you need to have a faces-config.xml in the WEB-INF directory with at minimum the following:
 
+```xml
     <faces-config version="2.3"
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -42,6 +45,7 @@ And you need to have a faces-config.xml in the WEB-INF directory with at minimum
         <lifecycle-factory>org.omnifaces.oyena.cdi.CdiLifecycleFactory</lifecycle-factory>
       </factory>
     </faces-config>
+```
 
 ### Add a beans.xml
 
@@ -49,6 +53,7 @@ As the framework requires CDI you need to activate CDI.
 
 Add an placeholder beans.xml to the WEB-INF directory and it will take care of that:
 
+```xml
     <beans
         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -56,11 +61,13 @@ Add an placeholder beans.xml to the WEB-INF directory and it will take care of t
                             http://xmlns.jcp.org/xml/ns/javaee/beans_2_0.xsd"
         bean-discovery-mode="all">
     </beans>
+```
 
 ### Add a Servlet mapping for the Oyena Action Servlet
 
 Add a servlet mapping to the web.xml file:
 
+```xml
     <web-app xmlns="http://java.sun.com/xml/ns/javaee"
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
@@ -71,6 +78,7 @@ Add a servlet mapping to the web.xml file:
         <url-pattern>/*</url-pattern>
       </servlet-mapping>
     </web-app>
+```
 
 ## Using it
 
@@ -84,6 +92,7 @@ To actually use it you wil need to create 2 components.
 Create a CDI bean with the following content and use your IDE to resolve the
 necessary imports:
 
+```java
     @RequestScoped
     public class IndexPageBean implements Serializable {
  
@@ -97,24 +106,27 @@ necessary imports:
         return "/index.xhtml";
       }
     }
+```
 
 ### Create a Facelet page
 
 Create the /index.xhtml Facelet page in the root of your web application with the 
 following content:
 
+```xml
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-    <html xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html">
       <h:head>
         <title>Index page</title>
       </h:head>
+	    
       <h:body>
         Hello from there!
       </h:body>
     </html>
+```
 
 ## Try it
 
@@ -133,10 +145,12 @@ Enjoy!
 If you want to use regular expression mapping for your action see the example
 below on how to do that:
 
+```java
     @ActionMapping("regex:/page[A-Z]")
     public String executePageAthroughZ() {
         return "/pageAthroughZ.xhtml";
     }
+```
 
 The example above matches against the regular expression '/page[A-Z]'. Note the
 format of the regular expression is the same format as the `Pattern` class in the
