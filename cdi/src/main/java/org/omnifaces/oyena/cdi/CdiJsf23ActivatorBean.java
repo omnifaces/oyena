@@ -24,10 +24,11 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package test;
+package org.omnifaces.oyena.cdi;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.annotation.FacesConfig;
+import static javax.faces.annotation.FacesConfig.Version.JSF_2_3;
 
 /**
  * Activator for JSF 2.3 and beyond.
@@ -35,8 +36,8 @@ import javax.faces.annotation.FacesConfig;
  * @author Manfred Riem (mriem@manorrock.com)
  */
 @ApplicationScoped
-@FacesConfig(version = FacesConfig.Version.JSF_2_3)
-public class Jsf23Activator {
+@FacesConfig(version = JSF_2_3)
+public class CdiJsf23ActivatorBean {
     /* 
      * FIXME - Note this class should not be necessary. 
      *         See https://github.com/eclipse-ee4j/mojarra/issues/4378
