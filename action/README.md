@@ -2,18 +2,18 @@
 # OmniFaces Oyena Action
 
 The OmniFaces Oyena Action module delivers you with an action framework that you
-can use with Eclipse Mojarra.
+can use with Eclipse Mojarra or Apache MyFaces.
 
 ## Prerequisites
 
-Your project should already be configured to use Eclipse Mojarra.
+Your project should already be configured to use Eclipse Mojarra or Apache
+MyFaces.
 
 ## Configuration
 
 To use it in your web application you will need to do the following:
 
 1. Add the Maven dependency
-3. Add a beans.xml
 4. Add a Servlet mapping for the Oyena Action Servlet
 
 ### Add the Maven dependency
@@ -29,21 +29,6 @@ Add the following Maven dependency:
 ```
 
 Where you need to replace x.y.z with the version you want to use.
-
-### Add a beans.xml
-
-As the framework requires CDI you need to activate CDI.
-
-Add an placeholder beans.xml to the WEB-INF directory and it will take care of that:
-
-```xml
-    <beans
-        xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
-                            http://xmlns.jcp.org/xml/ns/javaee/beans_2_0.xsd"
-        bean-discovery-mode="all">
-    </beans>
-```
 
 ### Add a Servlet mapping for the Oyena Action Servlet
 
