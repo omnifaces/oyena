@@ -14,7 +14,6 @@ To use it in your web application you will need to do the following:
 
 1. Add the Maven dependency
 2. Add a faces-config.xml with the CdiLifecycleFactory
-3. Add a beans.xml
 4. Add a Servlet mapping for the Oyena REST Servlet
 
 ### Add the Maven dependency
@@ -45,22 +44,6 @@ And you need to have a faces-config.xml in the WEB-INF directory with at minimum
         <lifecycle-factory>org.omnifaces.oyena.cdi.CdiLifecycleFactory</lifecycle-factory>
       </factory>
     </faces-config>
-```
-
-### Add a beans.xml
-
-As the framework requires CDI you need to activate CDI.
-
-Add an placeholder beans.xml to the WEB-INF directory and it will take care of that:
-
-```xml
-    <beans
-        xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
-                            http://xmlns.jcp.org/xml/ns/javaee/beans_2_0.xsd"
-        bean-discovery-mode="all">
-    </beans>
 ```
 
 ### Add a Servlet mapping for the Oyena REST Servlet
