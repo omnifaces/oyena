@@ -13,7 +13,6 @@ Your project should already be configured to use Eclipse Mojarra.
 To use it in your web application you will need to do the following:
 
 1. Add the Maven dependency
-2. Add a faces-config.xml with the CdiLifecycleFactory
 4. Add a Servlet mapping for the Oyena REST Servlet
 
 ### Add the Maven dependency
@@ -29,22 +28,6 @@ Add the following Maven dependency:
 ```
 
 Where you need to replace x.y.z with the version you want to use.
-
-### Add a faces-config.xml with the CdiLifecycleFactory
-
-And you need to have a faces-config.xml in the WEB-INF directory with at minimum the following:
-
-```xml
-    <faces-config version="2.3"
-              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
-                                  http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
-      <factory>
-        <lifecycle-factory>org.omnifaces.oyena.cdi.CdiLifecycleFactory</lifecycle-factory>
-      </factory>
-    </faces-config>
-```
 
 ### Add a Servlet mapping for the Oyena REST Servlet
 
