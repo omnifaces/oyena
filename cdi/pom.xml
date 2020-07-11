@@ -11,7 +11,7 @@
     </parent>
     <artifactId>oyena-cdi</artifactId>
     <packaging>jar</packaging>
-    <name>OmniFaces Oyena CDI</name>
+    <name>OmniFaces Oyena - CDI</name>
     <dependencies>
         <dependency>
             <groupId>javax.enterprise</groupId>

@@ -11,7 +11,7 @@
     </parent>
     <artifactId>rest</artifactId>
     <packaging>war</packaging>
-    <name>OmniFaces Oyena REST Test</name>
+    <name>OmniFaces Oyena - Test - REST Test</name>
     <dependencies>
         <dependency>
             <groupId>org.omnifaces.oyena</groupId>

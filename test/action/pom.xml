@@ -9,7 +9,7 @@
     </parent>
     <artifactId>action</artifactId>
     <packaging>war</packaging>
-    <name>OmniFaces Oyena Action Test</name>
+    <name>OmniFaces Oyena - Test - Action Test</name>
     <dependencies>
         <dependency>
             <groupId>org.omnifaces.oyena</groupId>

@@ -11,7 +11,7 @@
     </parent>
     <artifactId>oyena-action</artifactId>
     <packaging>jar</packaging>
-    <name>OmniFaces Oyena Action</name>
+    <name>OmniFaces Oyena - Action</name>
     <dependencies>
         <dependency>
             <groupId>org.omnifaces.oyena</groupId>
