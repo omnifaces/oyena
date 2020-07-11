@@ -2,22 +2,17 @@
 # OmniFaces Oyena REST
 
 The OmniFaces Oyena REST module delivers you with an REST framework that you
-can use with Eclipse Mojarra.
+can use with Eclipse Mojarra or Apache MyFaces.
 
 ## Prerequisites
 
-Your project should already be configured to use Eclipse Mojarra.
+Your project should already be configured to use Eclipse Mojarra or Apache
+MyFaces.
 
 ## Configuration
 
-To use it in your web application you will need to do the following:
-
-1. Add the Maven dependency
-4. Add a Servlet mapping for the Oyena REST Servlet
-
-### Add the Maven dependency
-
-Add the following Maven dependency:
+To use it in your web application you will need to add the following Maven
+dependency:
 
 ```xml
     <dependency>
@@ -29,33 +24,10 @@ Add the following Maven dependency:
 
 Where you need to replace x.y.z with the version you want to use.
 
-### Add a Servlet mapping for the Oyena REST Servlet
-
-Add a servlet mapping to the web.xml file:
-
-```xml
-    <web-app xmlns="http://java.sun.com/xml/ns/javaee"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-                             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-	 version="4.0">
-      <servlet-mapping>
-        <servlet-name>Oyena REST Servlet</servlet-name>
-        <url-pattern>/rest/*</url-pattern>
-      </servlet-mapping>
-    </web-app>
-```
-
 ## Using it
 
-To actually use it you will need to create 1 CDI bean.
-
-1. Create a CDI bean
-
-### Create a CDI bean
-
-Create a CDI bean with the following content and use your IDE to resolve the
-necessary imports:
+To actually use it you will need to create a CDI bean with the following content
+and use your IDE to resolve the necessary imports:
 
 ```java
     @RequestScoped
@@ -77,10 +49,9 @@ necessary imports:
 
 Deploy the web application to the server of your choice.
 
-Assuming the web application is deployed at /myrest on your localhost server
-listening on port 8080 you would browse to http://localhost:8080/myrest/rest/helloWorld
-to try it. Or http://localhost:8080/myrest/rest/this_is_my_path to show it can
-match using @RestPath and @RestPathParameter.
+Assuming the web application is deployed at `/myapp` on your localhost server
+listening on port 8080 you would browse to 
+http://localhost:8080/myapp/rest/helloWorld to try it.
 
 Enjoy!
 
@@ -115,3 +86,21 @@ do so.
 The example above uses a Java Regex pattern to create a regular expression mapping
 and the RestPathParameter annotation is then used to funnel the `path` Regex 
 capture group to the `path` method parameter.
+
+### Overriding the Servlet mapping
+
+If you do not want to use the `/rest/*` mapping that is setup by default for
+Oyena REST you can add a servlet mapping to the web.xml file to change it:
+
+```xml
+    <web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	 version="4.0">
+      <servlet-mapping>
+        <servlet-name>Oyena REST Servlet</servlet-name>
+        <url-pattern>/mymapping/*</url-pattern>
+      </servlet-mapping>
+    </web-app>
+```

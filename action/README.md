@@ -11,13 +11,8 @@ MyFaces.
 
 ## Configuration
 
-To use it in your web application you will need to do the following:
-
-1. Add the Maven dependency
-
-### Add the Maven dependency
-
-Add the following Maven dependency:
+To use it in your web application you will need to do add the following Maven
+dependency:
 
 ```xml
     <dependency>
@@ -31,7 +26,7 @@ Where you need to replace x.y.z with the version you want to use.
 
 ## Using it
 
-To actually use it you wil need to create 2 components.
+To actually use it you will need to do the following:
 
 1. Create a CDI bean
 2. Create a Facelet page
@@ -80,7 +75,7 @@ following content:
 
 Deploy the web application to the server of your choice.
 
-Assuming the web application is deployed at /myapp on your localhost server
+Assuming the web application is deployed at `/myapp` on your localhost server
 listening on port 8080 you would browse to 
 http://localhost:8080/myapp/action/index to try it.
 
