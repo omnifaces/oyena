@@ -14,7 +14,6 @@ MyFaces.
 To use it in your web application you will need to do the following:
 
 1. Add the Maven dependency
-4. Add a Servlet mapping for the Oyena Action Servlet
 
 ### Add the Maven dependency
 
@@ -29,22 +28,6 @@ Add the following Maven dependency:
 ```
 
 Where you need to replace x.y.z with the version you want to use.
-
-### Add a Servlet mapping for the Oyena Action Servlet
-
-Add a servlet mapping to the web.xml file:
-
-```xml
-    <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-                             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-	 version="4.0">
-      <servlet-mapping>
-        <servlet-name>Oyena Action Servlet</servlet-name>
-        <url-pattern>/*</url-pattern>
-      </servlet-mapping>
-    </web-app>
-```
 
 ## Using it
 
@@ -97,9 +80,9 @@ following content:
 
 Deploy the web application to the server of your choice.
 
-Assuming the web application is deployed at /myaction on your localhost server
-listening on port 8080 you would browse to http://localhost:8080/myaction/index
-to try it.
+Assuming the web application is deployed at /myapp on your localhost server
+listening on port 8080 you would browse to 
+http://localhost:8080/myapp/action/index to try it.
 
 Enjoy!
 
@@ -120,3 +103,20 @@ below on how to do that:
 The example above matches against the regular expression '/page[A-Z]'. Note the
 format of the regular expression is the same format as the `Pattern` class in the
 `java.util.regex` package.
+
+### Overriding the Servlet mapping
+
+If you do not want to use the `/action/*` mapping that is setup by default for
+Oyena Action you can add a servlet mapping to the web.xml file to change it:
+
+```xml
+    <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	 version="4.0">
+      <servlet-mapping>
+        <servlet-name>Oyena Action Servlet</servlet-name>
+        <url-pattern>/mymapping/*</url-pattern>
+      </servlet-mapping>
+    </web-app>
+```
