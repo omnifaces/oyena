@@ -1,8 +1,8 @@
 
 # OmniFaces Oyena
 
-OmniFaces Oyena delivers you with several modules that you can use with to
-write your applications.
+OmniFaces Oyena delivers you with add-on modules that you can use with your
+Jakarta Faces applications.
 
 See the list below for the modules that are available.
 

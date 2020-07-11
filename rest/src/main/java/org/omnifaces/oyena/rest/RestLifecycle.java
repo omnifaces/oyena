@@ -28,7 +28,6 @@ package org.omnifaces.oyena.rest;
 
 import java.io.IOException;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.spi.BeanManager;
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -45,12 +44,6 @@ import javax.inject.Named;
 @ApplicationScoped
 @Named("org.ommnifaces.oyena.rest.RestLifecycle")
 public class RestLifecycle extends Lifecycle {
-
-    /**
-     * Stores the bean manager.
-     */
-    @Inject
-    private BeanManager beanManager;
 
     /**
      * Stores the REST mapping matcher.

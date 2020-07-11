@@ -34,9 +34,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
 
 /**
- * The ServletContainerInitializer that automatically register the Oyena Action
- * Servlet and the '/action/*' mapping if the Servlet has not already been
- * registered.
+ * The ServletContainerInitializer that automatically registers the Oyena Action
+ * Servlet and the '/action/*' mapping if the Oyena Action Servlet has not
+ * already been registered.
  * 
  * @author Manfred Riem (mriem@manorrock.com)
  */
