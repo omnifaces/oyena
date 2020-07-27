@@ -24,51 +24,38 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.manorrock.oyena.rest.test;
+package org.omnifaces.oyena.rest;
 
-import org.omnifaces.oyena.rest.RestPath;
-import org.omnifaces.oyena.rest.RestPathParameter;
-import org.omnifaces.oyena.rest.RestQueryParameter;
-import java.io.Serializable;
-import javax.enterprise.context.RequestScoped;
+import java.util.Set;
+import javax.faces.webapp.FacesServlet;
+import javax.servlet.ServletContainerInitializer;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration.Dynamic;
 
 /**
- * The REST bean.
- *
+ * The ServletContainerInitializer that automatically registers the Oyena REST
+ * Servlet and the '/rest/*' mapping if the Oyena REST Servlet has not
+ * already been registered.
+ * 
  * @author Manfred Riem (mriem@manorrock.com)
  */
-@RequestScoped
-public class RestBean implements Serializable {
+public class RestInitializer implements ServletContainerInitializer {   
 
     /**
-     * Execute the index action.
-     *
-     * @return /index.xhtml
+     * On startup.
+     * 
+     * @param classes the classes.
+     * @param servletContext the servlet context.
+     * @throws ServletException when a Servlet error occurs.
      */
-    @RestPath("/helloWorld")
-    public String helloWorld() {
-        return "Hello World";
-    }
-
-    /**
-     * Execute the rest query parameter action.
-     *
-     * @param param the query parameter.
-     * @return /index.xhtml
-     */
-    @RestPath("/query")
-    public String query(@RestQueryParameter("param") String param) {
-        return param;
-    }
-    
-    /**
-     * Execute the rest parameter path action.
-     *
-     * @param path the path.
-     * @return /index.xhtml
-     */
-    @RestPath("/path/(?<path>.*)")
-    public String helloWorld(@RestPathParameter("path") String path) {
-        return path;
+    @Override
+    public void onStartup(Set<Class<?>> classes, ServletContext servletContext) 
+            throws ServletException {
+        if (servletContext.getServletRegistration("Oyena REST Servlet") == null) {
+            Dynamic dynamic = servletContext.addServlet("Oyena REST Servlet", FacesServlet.class.getName());
+            dynamic.addMapping("/rest/*");
+            dynamic.setInitParameter("javax.faces.LIFECYCLE_ID", RestLifecycle.class.getName());
+        }
     }
 }

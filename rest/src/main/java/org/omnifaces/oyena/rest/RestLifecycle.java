@@ -42,7 +42,7 @@ import javax.inject.Named;
  * @author Manfred Riem (mriem@manorrock.com)
  */
 @ApplicationScoped
-@Named("org.ommnifaces.oyena.rest.RestLifecycle")
+@Named("org.omnifaces.oyena.rest.RestLifecycle")
 public class RestLifecycle extends Lifecycle {
 
     /**

@@ -56,21 +56,46 @@ public class DefaultRestParameterProducer implements RestParameterProducer {
     public Object produce(FacesContext facesContext,
             RestMappingMatch restMappingMatch, Class<?> parameterType,
             Annotation[] parameterAnnotations) {
-        Object result;
-        RestPathParameter restPathParameter = getRestPathParameterAnnotation(parameterAnnotations);
-        RestQueryParameter restQueryParameter = getRestQueryParameterAnnotation(parameterAnnotations);
-        if (restPathParameter != null) {
+        
+        RestHeaderParameter header = getRestHeaderParameterAnnotation(parameterAnnotations);
+        if (header != null) {
+            String[] value = facesContext.getExternalContext().getRequestHeaderValuesMap().get(header.value());
+            return value != null ? value : new String[] {};
+        }
+        
+        RestPathParameter path = getRestPathParameterAnnotation(parameterAnnotations);
+        if (path != null) {
             Pattern pattern = Pattern.compile(restMappingMatch.getRestPath());
             Matcher matcher = pattern.matcher(restMappingMatch.getPathInfo());
             if (matcher.matches()) {
-                result = matcher.group(restPathParameter.value());
+                return matcher.group(path.value());
             } else {
-                throw new FacesException("Unable to match @RestPathParameter: " + restPathParameter.value());
+                throw new FacesException("Unable to match @RestPathParameter: " + path.value());
             }
-        } else if (restQueryParameter != null) {
-            result = facesContext.getExternalContext().getRequestParameterMap().get(restQueryParameter.value());
-        } else {
-            result = CDI.current().select(parameterType, Any.Literal.INSTANCE).get();
+        }
+
+        RestQueryParameter query = getRestQueryParameterAnnotation(parameterAnnotations);
+        if (query != null) {
+            return facesContext.getExternalContext().getRequestParameterMap().get(query.value());
+        }
+
+        return CDI.current().select(parameterType, Any.Literal.INSTANCE).get();
+    }
+
+    /**
+     * Get the @RestHeaderParameter annotation (if present).
+     *
+     * @return the @RestHeaderParameter annotation, or null if not present.
+     */
+    private RestHeaderParameter getRestHeaderParameterAnnotation(Annotation[] annotations) {
+        RestHeaderParameter result = null;
+        if (annotations != null && annotations.length > 0) {
+            for (Annotation annotation : annotations) {
+                if (annotation instanceof RestHeaderParameter) {
+                    result = (RestHeaderParameter) annotation;
+                    break;
+                }
+            }
         }
         return result;
     }
