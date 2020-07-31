@@ -39,12 +39,12 @@ import javax.faces.context.FacesContext;
 
 /**
  * The default action mapping matcher.
- * 
+ *
  * @author Manfred Riem (mriem@manorrock.com)
  */
 @ApplicationScoped
 public class DefaultActionMappingMatcher implements ActionMappingMatcher {
-    
+
     /**
      * Find the action mapping for the given bean.
      *
@@ -68,6 +68,7 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
                     result.setMethod(method.getJavaMember());
                     result.setActionMapping(mapping);
                     result.setMappingType(ActionMappingType.EXACT);
+                    result.setPathInfo(pathInfo);
                     break;
                 } else if (mapping.endsWith("*")) {
                     mapping = mapping.substring(0, mapping.length() - 1);
@@ -78,11 +79,13 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
                             result.setMethod(method.getJavaMember());
                             result.setActionMapping(mapping);
                             result.setMappingType(ActionMappingType.PREFIX);
+                            result.setPathInfo(pathInfo);
                         } else if (mapping.length() > result.getLength()) {
                             result.setBean(bean);
                             result.setMethod(method.getJavaMember());
                             result.setActionMapping(mapping);
                             result.setMappingType(ActionMappingType.PREFIX);
+                            result.setPathInfo(pathInfo);
                         }
                     }
                 } else if (mapping.startsWith("*")) {
@@ -93,6 +96,7 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
                         result.setMethod(method.getJavaMember());
                         result.setActionMapping(mapping);
                         result.setMappingType(ActionMappingType.EXTENSION);
+                        result.setPathInfo(pathInfo);
                         break;
                     }
                 } else if (mapping.startsWith("regex:")) {
@@ -103,6 +107,7 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
                         result.setMethod(method.getJavaMember());
                         result.setActionMapping(mapping);
                         result.setMappingType(ActionMappingType.REGEX);
+                        result.setPathInfo(pathInfo);
                         break;
                     }
                 }
@@ -118,7 +123,7 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
 
     /**
      * Get the beans.
-     * 
+     *
      * @return the beans.
      */
     private Iterator<Bean<?>> getBeans() {
@@ -126,10 +131,10 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
                 Object.class, Any.Literal.INSTANCE);
         return beans.iterator();
     }
-    
+
     /**
      * Match the request to an action mapping.
-     * 
+     *
      * @param facesContext the Faces context.
      * @return the action mapping match.
      */

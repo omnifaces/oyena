@@ -99,6 +99,20 @@ The example above matches against the regular expression '/page[A-Z]'. Note the
 format of the regular expression is the same format as the `Pattern` class in the
 `java.util.regex` package.
 
+Now if you want to use capture groups you can do that as well. The example below
+shows you how to do so.
+
+```java
+    @ActionMapping("regex:/(?<path>.*)")
+    public String capturePath(@ActionPathParameter("path") String path) {
+        return path;
+    }
+```
+
+The example above uses a Java Regex pattern to create a regular expression
+mapping and the ActionPathParameter annotation is then used to funnel the `path`
+Regex capture group to the `path` method parameter.
+
 ### Overriding the Servlet mapping
 
 If you do not want to use the `/action/*` mapping that is setup by default for

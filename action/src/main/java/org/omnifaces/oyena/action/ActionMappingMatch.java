@@ -55,6 +55,11 @@ public class ActionMappingMatch {
      * Stores the method.
      */
     private Method method;
+    
+    /**
+     * Stores the path info.
+     */
+    private String pathInfo;
 
     /**
      * Get the action mapping.
@@ -102,6 +107,15 @@ public class ActionMappingMatch {
     }
 
     /**
+     * Get the path info.
+     * 
+     * @return the path info.
+     */
+    public String getPathInfo() {
+        return pathInfo;
+    }
+
+    /**
      * Set the action mapping.
      *
      * @param actionMApping the action mapping.
@@ -137,4 +151,12 @@ public class ActionMappingMatch {
         this.method = method;
     }
 
+    /**
+     * Set the path info.
+     * 
+     * @param pathInfo the path info.
+     */
+    public void setPathInfo(String pathInfo) {
+        this.pathInfo = pathInfo;
+    }
 }

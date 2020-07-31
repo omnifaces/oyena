@@ -26,23 +26,26 @@
  */
 package org.omnifaces.oyena.action;
 
-import java.lang.annotation.Annotation;
+import java.lang.annotation.Documented;
+import static java.lang.annotation.ElementType.PARAMETER;
+import java.lang.annotation.Retention;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import java.lang.annotation.Target;
 
 /**
- * The action parameter producer API.
+ * The ActionPathParameter annotation.
  * 
  * @author Manfred Riem (mriem@manorrock.com)
  */
-public interface ActionParameterProducer {
-
+@Documented
+@Target(value = {PARAMETER})
+@Retention(value = RUNTIME)
+public @interface ActionPathParameter {
+    
     /**
-     * Produce an instance for the given type.
+     * Stores the name (a.k.a capturing group).
      * 
-     * @param actionMappingMatch the Action mapping match.
-     * @param parameterType the type.
-     * @param parameterAnnotations the parameter annotations.
-     * @return the instance.
+     * @return the name (a.k.a capturing group).
      */
-    public Object produce(ActionMappingMatch actionMappingMatch, Class<?> parameterType,
-        Annotation[] parameterAnnotations);
+    public String value() default "";
 }

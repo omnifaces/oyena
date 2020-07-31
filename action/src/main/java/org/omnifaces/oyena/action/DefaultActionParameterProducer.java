@@ -26,13 +26,17 @@
  */
 package org.omnifaces.oyena.action;
 
+import java.lang.annotation.Annotation;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.spi.CDI;
+import javax.faces.FacesException;
 
 /**
  * The default action parameter producer.
- * 
+ *
  * @author Manfred Riem (mriem@manorrock.com)
  */
 @ApplicationScoped
@@ -40,12 +44,45 @@ public class DefaultActionParameterProducer implements ActionParameterProducer {
 
     /**
      * Produce an instance for the given type.
-     * 
-     * @param type the type.
+     *
+     * @param actionMappingMatch the Action mapping match.
+     * @param parameterType the parameter type.
+     * @param parameterAnnotations the parameter annotations.
      * @return the instance.
      */
     @Override
-    public Object produce(Class<?> type) {
-        return CDI.current().select(type, Any.Literal.INSTANCE).get();
+    public Object produce(ActionMappingMatch actionMappingMatch, Class<?> parameterType,
+            Annotation[] parameterAnnotations) {
+        
+        ActionPathParameter path = getActionPathParameterAnnotation(parameterAnnotations);
+        if (path != null) {
+            Pattern pattern = Pattern.compile(actionMappingMatch.getActionMapping());
+            Matcher matcher = pattern.matcher(actionMappingMatch.getPathInfo());
+            if (matcher.matches()) {
+                return matcher.group(path.value());
+            } else {
+                throw new FacesException("Unable to match @RestPathParameter: " + path.value());
+            }
+        }
+
+        return CDI.current().select(parameterType, Any.Literal.INSTANCE).get();
+    }
+    
+    /**
+     * Get the @ActionPathParameter annotation (if present).
+     *
+     * @return the @RestPathParameter annotation, or null if not present.
+     */
+    private ActionPathParameter getActionPathParameterAnnotation(Annotation[] annotations) {
+        ActionPathParameter result = null;
+        if (annotations != null && annotations.length > 0) {
+            for (Annotation annotation : annotations) {
+                if (annotation instanceof ActionPathParameter) {
+                    result = (ActionPathParameter) annotation;
+                    break;
+                }
+            }
+        }
+        return result;
     }
 }

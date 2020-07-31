@@ -84,4 +84,16 @@ public class ActionBean implements Serializable {
     public String executePageAthroughZ(HttpServletRequest request, FacesContext facesContext) {
         return "/index.xhtml";
     }
+    
+    /**
+     * Execute the mypath action.
+     * 
+     * @param request the HTTP servlet request.
+     * @param facesContext the Faces context.
+     * @return /index.xhtml
+     */
+    @ActionMapping("regex:/mypath/(?<path>.*)")
+    public String executeMyPath(HttpServletRequest request, FacesContext facesContext) {
+        return "/index.xhtml";
+    }
 }
