@@ -57,6 +57,21 @@ Enjoy!
 
 ## More information
 
+### Accessing request headers
+
+If you want to be able to access request header parameters the RestHeaderParameter
+annotation can be used to achieve that.
+
+```java
+    @RestPath("/header")
+    public String header(@RestHeaderParameter("Accept-Encoding") String param) {
+        return param;
+    }
+```
+
+The example above sets the `param` method parameter to the value of the 
+'Accept-Encoding' request header.
+
 ### Accessing query parameters
 
 If you want to be able to access query parameters the RestQueryParameter
@@ -104,18 +119,3 @@ Oyena REST you can add a servlet mapping to the web.xml file to change it:
       </servlet-mapping>
     </web-app>
 ```
-
-### Accessing request headers
-
-If you want to be able to access request header parameters the RestHeaderParameter
-annotation can be used to achieve that.
-
-```java
-    @RestPath("/header")
-    public String header(@RestHeaderParameter("Accept-Encoding") String param) {
-        return param;
-    }
-```
-
-The example above sets the `param` method parameter to the value of the 
-'Accept-Encoding' request header.
