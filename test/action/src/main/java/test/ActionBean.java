@@ -31,6 +31,7 @@ import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import org.omnifaces.oyena.action.ActionQueryParameter;
 
 /**
  * The action bean.
@@ -94,6 +95,17 @@ public class ActionBean implements Serializable {
      */
     @ActionMapping("regex:/mypath/(?<path>.*)")
     public String executeMyPath(HttpServletRequest request, FacesContext facesContext) {
+        return "/index.xhtml";
+    }
+    
+    /**
+     * Execute the myquery action.
+     * 
+     * @param q the <code>q</code> query parameter.
+     * @return /index.xhtml
+     */
+    @ActionMapping("/myquery")
+    public String executeMyQuery(@ActionQueryParameter("q") String q) {
         return "/index.xhtml";
     }
 }

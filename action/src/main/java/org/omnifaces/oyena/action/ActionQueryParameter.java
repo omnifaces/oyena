@@ -26,25 +26,26 @@
  */
 package org.omnifaces.oyena.action;
 
-import java.lang.annotation.Annotation;
-import javax.faces.context.FacesContext;
+import java.lang.annotation.Documented;
+import static java.lang.annotation.ElementType.PARAMETER;
+import java.lang.annotation.Retention;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import java.lang.annotation.Target;
 
 /**
- * The action parameter producer API.
+ * The ActionQueryParameter annotation.
  * 
  * @author Manfred Riem (mriem@manorrock.com)
  */
-public interface ActionParameterProducer {
-
+@Documented
+@Target(value = {PARAMETER})
+@Retention(value = RUNTIME)
+public @interface ActionQueryParameter {
+    
     /**
-     * Produce an instance for the given type.
+     * Stores the name.
      * 
-     * @param facesContext the Faces context.
-     * @param actionMappingMatch the Action mapping match.
-     * @param parameterType the type.
-     * @param parameterAnnotations the parameter annotations.
-     * @return the instance.
+     * @return the name.
      */
-    public Object produce(FacesContext facesContext, ActionMappingMatch actionMappingMatch, Class<?> parameterType,
-        Annotation[] parameterAnnotations);
+    public String value() default "";
 }

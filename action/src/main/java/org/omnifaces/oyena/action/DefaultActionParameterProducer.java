@@ -33,6 +33,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.spi.CDI;
 import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
 
 /**
  * The default action parameter producer.
@@ -45,13 +46,14 @@ public class DefaultActionParameterProducer implements ActionParameterProducer {
     /**
      * Produce an instance for the given type.
      *
+     * @param facesContext the Faces context.
      * @param actionMappingMatch the Action mapping match.
      * @param parameterType the parameter type.
      * @param parameterAnnotations the parameter annotations.
      * @return the instance.
      */
     @Override
-    public Object produce(ActionMappingMatch actionMappingMatch, Class<?> parameterType,
+    public Object produce(FacesContext facesContext, ActionMappingMatch actionMappingMatch, Class<?> parameterType,
             Annotation[] parameterAnnotations) {
         
         ActionPathParameter path = getActionPathParameterAnnotation(parameterAnnotations);
@@ -61,10 +63,15 @@ public class DefaultActionParameterProducer implements ActionParameterProducer {
             if (matcher.matches()) {
                 return matcher.group(path.value());
             } else {
-                throw new FacesException("Unable to match @RestPathParameter: " + path.value());
+                throw new FacesException("Unable to match @ActionPathParameter: " + path.value());
             }
         }
 
+        ActionQueryParameter query = getActionQueryParameterAnnotation(parameterAnnotations);
+        if (query != null) {
+            return facesContext.getExternalContext().getRequestParameterMap().get(query.value());
+        }
+        
         return CDI.current().select(parameterType, Any.Literal.INSTANCE).get();
     }
     
@@ -79,6 +86,24 @@ public class DefaultActionParameterProducer implements ActionParameterProducer {
             for (Annotation annotation : annotations) {
                 if (annotation instanceof ActionPathParameter) {
                     result = (ActionPathParameter) annotation;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Get the @ActionQueryParameter annotation (if present).
+     *
+     * @return the @ActionQueryParameter annotation, or null if not present.
+     */
+    private ActionQueryParameter getActionQueryParameterAnnotation(Annotation[] annotations) {
+        ActionQueryParameter result = null;
+        if (annotations != null && annotations.length > 0) {
+            for (Annotation annotation : annotations) {
+                if (annotation instanceof ActionQueryParameter) {
+                    result = (ActionQueryParameter) annotation;
                     break;
                 }
             }

@@ -65,6 +65,7 @@ public class DefaultActionMethodExecutor implements ActionMethodExecutor {
             if (parameters.length > 0) {
                 for(int i=0; i<parameters.length; i++) {
                     parameters[i] = actionParameterProducer.produce(
+                            facesContext,
                             actionMappingMatch,
                             actionMappingMatch.getMethod().getParameterTypes()[i],
                             actionMappingMatch.getMethod().getParameterAnnotations()[i]);
