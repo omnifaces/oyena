@@ -113,6 +113,20 @@ The example above uses a Java Regex pattern to create a regular expression
 mapping and the ActionPathParameter annotation is then used to funnel the `path`
 Regex capture group to the `path` method parameter.
 
+### Accessing query parameters
+
+If you want to be able to access query parameters the ActionQueryParameter
+annotation can be used to achieve that.
+
+```java
+    @RestPath("/query")
+    public String query(@ActionQueryParameter("param") String param) {
+        return param;
+    }
+```
+
+The example above sets the `param` method parameter to the query parameter `param`.
+
 ### Overriding the Servlet mapping
 
 If you do not want to use the `/action/*` mapping that is setup by default for
