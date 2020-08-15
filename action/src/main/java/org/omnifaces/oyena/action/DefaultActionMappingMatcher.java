@@ -62,53 +62,55 @@ public class DefaultActionMappingMatcher implements ActionMappingMatcher {
                 ActionMapping requestMapping = method.getAnnotation(ActionMapping.class);
                 String mapping = requestMapping.value();
                 String pathInfo = facesContext.getExternalContext().getRequestPathInfo();
-                if (pathInfo.equals(mapping)) {
-                    result = new ActionMappingMatch();
-                    result.setBean(bean);
-                    result.setMethod(method.getJavaMember());
-                    result.setActionMapping(mapping);
-                    result.setMappingType(ActionMappingType.EXACT);
-                    result.setPathInfo(pathInfo);
-                    break;
-                } else if (mapping.endsWith("*")) {
-                    mapping = mapping.substring(0, mapping.length() - 1);
-                    if (pathInfo.startsWith(mapping)) {
-                        if (result == null) {
+                if (pathInfo != null) {
+                    if (pathInfo.equals(mapping)) {
+                        result = new ActionMappingMatch();
+                        result.setBean(bean);
+                        result.setMethod(method.getJavaMember());
+                        result.setActionMapping(mapping);
+                        result.setMappingType(ActionMappingType.EXACT);
+                        result.setPathInfo(pathInfo);
+                        break;
+                    } else if (mapping.endsWith("*")) {
+                        mapping = mapping.substring(0, mapping.length() - 1);
+                        if (pathInfo.startsWith(mapping)) {
+                            if (result == null) {
+                                result = new ActionMappingMatch();
+                                result.setBean(bean);
+                                result.setMethod(method.getJavaMember());
+                                result.setActionMapping(mapping);
+                                result.setMappingType(ActionMappingType.PREFIX);
+                                result.setPathInfo(pathInfo);
+                            } else if (mapping.length() > result.getLength()) {
+                                result.setBean(bean);
+                                result.setMethod(method.getJavaMember());
+                                result.setActionMapping(mapping);
+                                result.setMappingType(ActionMappingType.PREFIX);
+                                result.setPathInfo(pathInfo);
+                            }
+                        }
+                    } else if (mapping.startsWith("*")) {
+                        mapping = mapping.substring(1);
+                        if (pathInfo.endsWith(mapping)) {
                             result = new ActionMappingMatch();
                             result.setBean(bean);
                             result.setMethod(method.getJavaMember());
                             result.setActionMapping(mapping);
-                            result.setMappingType(ActionMappingType.PREFIX);
+                            result.setMappingType(ActionMappingType.EXTENSION);
                             result.setPathInfo(pathInfo);
-                        } else if (mapping.length() > result.getLength()) {
+                            break;
+                        }
+                    } else if (mapping.startsWith("regex:")) {
+                        mapping = mapping.substring("regex:".length());
+                        if (Pattern.matches(mapping, pathInfo)) {
+                            result = new ActionMappingMatch();
                             result.setBean(bean);
                             result.setMethod(method.getJavaMember());
                             result.setActionMapping(mapping);
-                            result.setMappingType(ActionMappingType.PREFIX);
+                            result.setMappingType(ActionMappingType.REGEX);
                             result.setPathInfo(pathInfo);
+                            break;
                         }
-                    }
-                } else if (mapping.startsWith("*")) {
-                    mapping = mapping.substring(1);
-                    if (pathInfo.endsWith(mapping)) {
-                        result = new ActionMappingMatch();
-                        result.setBean(bean);
-                        result.setMethod(method.getJavaMember());
-                        result.setActionMapping(mapping);
-                        result.setMappingType(ActionMappingType.EXTENSION);
-                        result.setPathInfo(pathInfo);
-                        break;
-                    }
-                } else if (mapping.startsWith("regex:")) {
-                    mapping = mapping.substring("regex:".length());
-                    if (Pattern.matches(mapping, pathInfo)) {
-                        result = new ActionMappingMatch();
-                        result.setBean(bean);
-                        result.setMethod(method.getJavaMember());
-                        result.setActionMapping(mapping);
-                        result.setMappingType(ActionMappingType.REGEX);
-                        result.setPathInfo(pathInfo);
-                        break;
                     }
                 }
             }
