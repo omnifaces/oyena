@@ -56,6 +56,11 @@ public class DefaultActionParameterProducer implements ActionParameterProducer {
     public Object produce(FacesContext facesContext, ActionMappingMatch actionMappingMatch, Class<?> parameterType,
             Annotation[] parameterAnnotations) {
         
+        ActionHeaderParameter header = getActionHeaderParameterAnnotation(parameterAnnotations);
+        if (header != null) {
+            return facesContext.getExternalContext().getRequestHeaderMap().get(header.value());
+        }
+        
         ActionPathParameter path = getActionPathParameterAnnotation(parameterAnnotations);
         if (path != null) {
             Pattern pattern = Pattern.compile(actionMappingMatch.getActionMapping());
@@ -73,6 +78,24 @@ public class DefaultActionParameterProducer implements ActionParameterProducer {
         }
         
         return CDI.current().select(parameterType, Any.Literal.INSTANCE).get();
+    }
+    
+    /**
+     * Get the @ActionHeaderParameter annotation (if present).
+     *
+     * @return the @ActionQueryParameter annotation, or null if not present.
+     */
+    private ActionHeaderParameter getActionHeaderParameterAnnotation(Annotation[] annotations) {
+        ActionHeaderParameter result = null;
+        if (annotations != null && annotations.length > 0) {
+            for (Annotation annotation : annotations) {
+                if (annotation instanceof ActionHeaderParameter) {
+                    result = (ActionHeaderParameter) annotation;
+                    break;
+                }
+            }
+        }
+        return result;
     }
     
     /**

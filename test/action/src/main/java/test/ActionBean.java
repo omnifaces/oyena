@@ -31,6 +31,7 @@ import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import org.omnifaces.oyena.action.ActionHeaderParameter;
 import org.omnifaces.oyena.action.ActionQueryParameter;
 
 /**
@@ -48,6 +49,17 @@ public class ActionBean implements Serializable {
      */
     @ActionMapping("/index")
     public String execute() {
+        return "/index.xhtml";
+    }
+    
+    /**
+     * Execute the header action.
+     * 
+     * @param header the <code>header</code> header parameter.
+     * @return /index.xhtml
+     */
+    @ActionMapping("/header")
+    public String executeHeader(@ActionHeaderParameter("header") String header) {
         return "/index.xhtml";
     }
     
