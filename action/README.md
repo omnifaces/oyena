@@ -83,6 +83,21 @@ Enjoy!
 
 ## More information
 
+### Accessing request headers
+
+If you want to be able to access request header parameters the ActionHeaderParameter
+annotation can be used to achieve that.
+
+```java
+    @ActionMapping("/header")
+    public String header(@ActionHeaderParameter("Accept-Encoding") String param) {
+        return param;
+    }
+```
+
+The example above sets the `param` method parameter to the value of the 
+'Accept-Encoding' request header.
+
 ### Regular Expression mapping
 
 If you want to use regular expression mapping for your action see the example
