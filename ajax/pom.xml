@@ -12,6 +12,11 @@
     <name>OmniFaces Oyena - AJAX</name>
     <dependencies>
         <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>javax.faces</groupId>
             <artifactId>javax.faces-api</artifactId>
             <scope>provided</scope>
