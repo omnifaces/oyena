@@ -1,8 +1,8 @@
 name: build
 on: [push]
 jobs:
-    build:
-      runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - name: Set up Java 1.8
